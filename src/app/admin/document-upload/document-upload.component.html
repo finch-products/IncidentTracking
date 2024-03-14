@@ -1,0 +1,55 @@
+<div class="container p-4">
+	<input type="file" #fileInput (change)="onFilesSelected($event)" multiple style="display: none;" />
+	<div *ngIf="documents.length > 0" class="card">
+		<div class="file-input-wrapper">
+			<h2>Upload Notices</h2>
+		</div>
+		<div class="pad">
+			<div *ngFor="let document of documents; let i = index">
+				<mat-checkbox [(ngModel)]="document.allBranches">All Branches</mat-checkbox>
+				<mat-form-field appearance="outline">
+					<mat-label>Select Branch</mat-label>
+					<mat-select [(value)]="document.selectedBranch" [disabled]="document.allBranches">
+						<mat-option *ngFor="let branch of branches" [value]="branch">{{ branch }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<span>{{ document.file }}</span>
+			</div>
+			<button mat-flat-button color="primary" (click)="uploadDocuments()" *ngIf="documents.length !== 0">Upload</button>
+		</div>
+	
+		
+	</div>
+	
+
+	<div class="notice-list-wrap card">
+		<button mat-flat-button color="primary" type="button" class="btn1" *ngIf="documents.length === 0" (click)="fileInput.click()"> <mat-icon>add</mat-icon> New Notice</button>
+		<h2>Notices List</h2>
+		<div class="overflow">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Sl No</th>
+						<th>Document</th>
+						<th>Sent To</th>
+						<th>Sent On</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let uploadedDocument of uploadedDocuments">
+						<td>{{ uploadedDocument.id }}</td>
+						<td>
+							<a href="assets/notices/{{uploadedDocument.file}}" target="_blank">
+								{{ uploadedDocument.file }}
+							</a>
+						</td>
+						<td>{{ uploadedDocument.allBranches ? 'All Branches' : uploadedDocument.selectedBranch }}</td>
+						<td>{{ uploadedDocument.sentOn | date:'dd MMM yy, hh:mm a' }}</td>
+						<td>{{ uploadedDocument.status }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

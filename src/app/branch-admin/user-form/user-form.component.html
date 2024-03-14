@@ -1,0 +1,87 @@
+<div class="container p-4">
+  <div class="card">
+    <h2>Add User</h2>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form pad">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="department">
+              <mat-option *ngFor="let dept of departments" [value]="dept.name">{{ dept.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" required>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="fill">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-lg-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address" required></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div align="end">
+        <button mat-raised-button type="submit" [disabled]="userForm.invalid">Add User</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="user-list card">
+    <h2>User List</h2>
+    <div class="overflow">
+      <table class="table" *ngIf="users.length > 0">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Branch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{user.department}}</td>
+            <td>{{user.role}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

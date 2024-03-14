@@ -1,0 +1,69 @@
+<div class="report-container container">
+  <div class="fixed-download-section">
+    <span>Download as</span>
+    <button mat-raised-button color="primary" (click)="downloadReport('pdf')">PDF/Excel</button>
+  </div>
+  <h2>Cases Over Time</h2>
+  <div [formGroup]="searchForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="pickerStart" formControlName="startDate" (dateChange)="filterData()">
+      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" (dateChange)="filterData()">
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <canvas id="casesOverTimeCanvas"></canvas>
+
+
+  <h2>Cases by Department</h2>
+  <div [formGroup]="deptsearchForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Department Start Date</mat-label>
+      <input matInput [matDatepicker]="deptPickerStart" formControlName="deptStartDate" (dateChange)="filterDeptData()">
+      <mat-datepicker-toggle matSuffix [for]="deptPickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #deptPickerStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Department End Date</mat-label>
+      <input matInput [matDatepicker]="deptPickerEnd" formControlName="deptEndDate" (dateChange)="filterDeptData()">
+      <mat-datepicker-toggle matSuffix [for]="deptPickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #deptPickerEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div style="display: flex; justify-content: center;">
+    <canvas id="casesByDepartmentCanvas"></canvas>
+  </div>
+
+  <h2>Cases by Status</h2>
+  <div [formGroup]="statusSearchForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="statusPickerStart" formControlName="statusStartDate"
+        (dateChange)="filterStatusData()">
+      <mat-datepicker-toggle matSuffix [for]="statusPickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #statusPickerStart></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="statusPickerEnd" formControlName="statusEndDate"
+        (dateChange)="filterStatusData()">
+      <mat-datepicker-toggle matSuffix [for]="statusPickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #statusPickerEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div style="display: block;">
+    <canvas id="casesByStatusCanvas"></canvas>
+  </div>
+
+  <h2>Average Resolution Time by Department</h2>
+  <canvas id="tatByDepartmentCanvas" width="400" height="200"></canvas>
+
+  <h2>More than 1 fraud cases against an employee</h2>
+  <canvas id="fraudCasesCanvas"></canvas>
+</div>

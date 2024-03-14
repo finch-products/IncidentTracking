@@ -1,0 +1,49 @@
+<div *ngIf="showHeader">
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="over" class="sidenav">
+      <mat-nav-list>
+        <a class="side-nav-list" routerLink="/dashboard" (click)="sidenav.close()">Dashboard</a>
+        <a class="side-nav-list">
+          <div class="flex-r">
+            <div>Notice &nbsp;</div>
+            <div><app-notification-bell></app-notification-bell></div>
+          </div>
+        </a>
+        <a class="side-nav-list" routerLink="/login" (click)="logout()">Logout</a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <div class="header-content">
+          <a href="/dashboard"><img src="assets/logo.png" alt="HRHQ Logo" class="header-logo" height="60px"></a>
+          <span>Incident Tracking</span>
+        </div>
+        <span class="spacer"></span>
+        <nav class="desktop-menu">
+          <a routerLink="/dashboard">Dashboard</a>
+          <a routerLink="/reports">Reports</a>
+          <a routerLink="/search">Search</a>
+          <a routerLink="/departments">Departments</a>
+          <a routerLink="/investigators">Investigators</a>
+          <a routerLink="/user-management">User Management</a>
+          <a routerLink="/login" (click)="logout()">Logout</a>
+        </nav>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<div *ngIf="!showHeader">
+
+  <router-outlet></router-outlet>
+</div>
+<div>
+  <button mat-fab class="create-case-button" routerLink="/cases" title="Create Case">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

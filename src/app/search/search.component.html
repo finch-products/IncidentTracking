@@ -1,0 +1,86 @@
+<div class="search container">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Unique Case No</mat-label>
+          <input matInput formControlName="caseNo">
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Investigator</mat-label>
+          <input matInput formControlName="investigator">
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Location/Building</mat-label>
+          <input matInput formControlName="location">
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Quick Date Options</mat-label>
+          <mat-select formControlName="quickDate">
+            <mat-option value="7">Last 7 Days</mat-option>
+            <mat-option value="30">Last 30 Days</mat-option>
+            <mat-option value="180">Last 6 Months</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Date Range From</mat-label>
+          <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom">
+          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFrom></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Date Range To</mat-label>
+          <input matInput [matDatepicker]="pickerTo" formControlName="dateTo">
+          <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="department">
+            <mat-option *ngFor="let dept of departments" [value]="dept.name">{{ dept.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="open">Open</mat-option>
+            <mat-option value="closed">Closed</mat-option>
+            <!-- Add other statuses as needed -->
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div align="end">
+      <button mat-raised-button color="primary" type="submit">Search</button>
+    </div>
+  </form>
+
+  <div class="col-12 search-feild">
+    <mat-form-field>
+      <input matInput #searchInput (keyup)="applyFilter(searchInput.value)" placeholder="Enter Keywords to search">
+    </mat-form-field>
+  </div>
+  <mat-table [dataSource]="filteredData">
+    <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+      <mat-header-cell *matHeaderCellDef>{{ col }}</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element[col] }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

@@ -1,0 +1,17 @@
+<div #bellIcon (click)="toggleNoticeDetails()">
+  <!-- 🔔 -->
+  <mat-icon [matBadge]="pendingNoticesCount" matBadgeColor="warn">notifications</mat-icon>
+</div>
+
+<ng-template #overlayTemplate>
+  <div class="notification-overlay">
+    <h3>Notices Alert</h3>
+    <p *ngIf="authService.getRole() === 'ecMembers'">
+      You have {{ pendingNoticesCount }} pending notices that needs your attention.
+    </p>
+    <p *ngIf="authService.getRole() === 'fcu'">
+      You have {{ pendingNoticesCount }} aknowledged notices.
+    </p>
+    <button mat-flat-button color="primary" (click)="navigateToNoticeDetail()">Click here to know</button>
+  </div>
+</ng-template>

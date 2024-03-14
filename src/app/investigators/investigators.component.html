@@ -1,0 +1,66 @@
+<div class="container p-4">
+	<div class="card">
+		<h2>Add Investigator</h2>
+		<form [formGroup]="investigatorForm" (ngSubmit)="onSubmit()" class="user-form pad">
+			<div class="row">
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>First Name</mat-label>
+						<input matInput formControlName="firstName" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>Last Name</mat-label>
+						<input matInput formControlName="lastName" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>Email</mat-label>
+						<input matInput type="email" formControlName="email" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>Phone Number</mat-label>
+						<input matInput formControlName="phone" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-lg-9">
+					<mat-form-field appearance="outline">
+						<mat-label>Address</mat-label>
+						<textarea matInput formControlName="address" required></textarea>
+					</mat-form-field>
+				</div>
+			</div>
+			<div align="end">
+				<button mat-raised-button type="submit" [disabled]="investigatorForm.invalid">Add Investigator</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="card mt-3">
+		<h2>Investigator List</h2>
+		<div class="overflow">
+			<table class="table" *ngIf="invsts.length > 0">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let i of invsts">
+						<td>{{ i.firstName + ' ' + i.lastName }}</td>
+						<td>{{ i.email }}</td>
+						<td>{{ i.phone }}</td>
+						<td>{{ i.address }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,61 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.desktop-menu {
+  display: flex;
+  a {
+    color: white;
+  }
+}
+
+.desktop-menu a {
+  margin-left: 20px;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.moving-text{
+  width: 100vw;
+  // overflow: hidden;
+  background-color: red;
+    padding: 10px;
+  a{
+    color: white;
+    font-weight: bold;
+  }
+}
+.side-nav-list{
+  padding: 10px;
+  display: block;
+  text-decoration: none;
+  color: black;
+  border-bottom: 0.5px solid #666;
+}
+
+@media (max-width: 600px) {
+  .desktop-menu {
+    display: none;
+  }
+}
+
+@media (min-width: 601px) {
+  mat-toolbar button {
+    display: none;
+  }
+}
+.create-case-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  background-color: #3f51b5;
+}

@@ -1,0 +1,35 @@
+<div class="login-wrap" fxLayout="column" fxLayoutAlign="center center" style="height: 100vh;">
+
+
+	<div class="app-auth-form" fxLayout="column">
+		<div class="fler-r a-btn-master w-100">
+      <a href="/login"  mat-button class="w-50 text-center">
+				Login
+			</a>
+			<!-- <a href="/login/fcu"  mat-button class="w-50" [ngClass]="{'active': userType === 'fcu'}">
+				FCU/LEC Login
+			</a>
+			<a href="/login" mat-button class="w-50" [ngClass]="{'active': userType !== 'fcu'}">
+				EC Members Login
+			</a> -->
+		</div>
+
+		<form [formGroup]="authForm" (ngSubmit)="submit()">
+			<h2>{{title}}</h2>
+			<mat-form-field appearance="outline">
+				<mat-label>Phone Number</mat-label>
+				<input matInput formControlName="phone" type="tel" />
+			</mat-form-field>
+
+			<mat-form-field *ngIf="otpSent" appearance="outline">
+				<mat-label>OTP</mat-label>
+				<input matInput formControlName="otp" />
+			</mat-form-field>
+
+			<div align="end">
+				<button mat-stroked-button color="primary" *ngIf="showOTPButton()" type="button" (click)="sendOtp()">Send OTP</button>
+				<button mat-flat-button color="primary" *ngIf="showSubmitButton()" type="submit">Login</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,122 @@
+<div class="dashboard container">
+  <!-- Branch Confirmation Status -->
+  <!-- <div class="confirmation-status card" *ngIf="authService.getRole() === 'fcu'">
+    <h2>Branch Notice Status</h2>
+    <div class="overflow">
+      <table class="table table1">
+        <thead>
+          <tr>
+            <th>Branch Name</th>
+            <th class="red-bold">Not seen</th>
+            <th class="red-bold">Seen but not Acknowledged</th>
+            <th>Acknowledged</th>
+            <th>Total Notices</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of confirmationReport">
+            <td>{{ report.branchName }}</td>
+            <td>{{ report.notSeen }}</td>
+            <td>{{ report.seenNotAcknowledged }}</td>
+            <td>{{ report.acknowledged }}</td>
+            <td>{{ report.totalNotices }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div align="end" class="pad">
+      <button mat-flat-button color="primary" type="submit" (click)="sendReminder()"><mat-icon>mail</mat-icon> Send
+        Email Reminder</button>
+    </div>
+
+  </div> -->
+
+  <!-- What is Pending -->
+  <!-- <div class="pending card">
+    <h2>Pending Notices for Action</h2>
+    <div class="flex-r pad">
+      <ng-container *ngFor="let notice of pendingReportData">
+        <a mat-flat-button [ngClass]="{'common-notice-btn': notice.title.includes('Branch Specific Notice'),
+                   'branch-notice-btn': notice.title.includes('Common Notice')}" href="/notice-detail">{{
+          notice.title }}</a>
+      </ng-container>
+    </div>
+
+  </div> -->
+
+  <!-- Date at which docs were sent -->
+  <!-- <div class="docs-sent card">
+    <h2>Notice History</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Documents</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of noticeCount">
+          <td>{{ entry.date | date }}</td>
+          <td>
+            <span *ngFor="let document of entry.documents">
+              <a [ngClass]="{'common-notice-btn': document.title.includes('Branch Specific Notice'),
+              'branch-notice-btn': document.title.includes('Common Notice')}" mat-flat-button
+                href="{{ document.url }}" target="_blank">{{ document.title }}</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+  <!-- <div class="notice-container" *ngIf="authService.getRole() === 'fcu'">
+    <app-document-upload></app-document-upload>
+  </div> -->
+
+
+  <!-- incident tracking -->
+
+  <div class="dashboard-container">
+    <div class="sidebar">
+      <mat-form-field appearance="fill">
+        <mat-label>Search Departments</mat-label>
+        <input matInput type="text" [(ngModel)]="searchText" placeholder="Search"  (input)="filterDepartments()" >
+      </mat-form-field>
+      <mat-nav-list>
+        <mat-list-item [class.selected-department]="!selectedDepartment" (click)="selectDepartment(null)">
+          <span mat-line>All Departments</span>
+        </mat-list-item>
+        <mat-list-item *ngFor="let department of filteredDepartments" [class.selected-department]="department.name === selectedDepartment" (click)="selectDepartment(department)">
+          <span mat-line>{{ department.name }}</span>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+    <div class="main-content">
+      <div class="summary-cards">
+        <mat-card (click)="showTotalCases()" class="total-card">
+          <mat-card-title>Total Cases</mat-card-title>
+          <mat-card-content>{{ totalCases }}</mat-card-content>
+        </mat-card>
+        <mat-card (click)="showOpenCases()" class="open-card">
+          <mat-card-title>Open Cases</mat-card-title>
+          <mat-card-content>{{ openCases }}</mat-card-content>
+        </mat-card>
+        <mat-card (click)="showClosedCases()" class="closed-card">
+          <mat-card-title>Closed Cases</mat-card-title>
+          <mat-card-content>{{ closedCases }}</mat-card-content>
+        </mat-card>
+      </div>
+      <div class="case-details">
+        <table mat-table [dataSource]="filteredCases" class="mat-elevation-z8">
+          <!-- Define columns -->
+          <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
+            <td mat-cell *matCellDef="let caseItem"> {{ caseItem[column] }} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

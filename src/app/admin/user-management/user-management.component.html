@@ -1,0 +1,62 @@
+<div class="container p-4">
+	<div class="card">
+		<h2>Add Branch</h2>
+		<form [formGroup]="branchForm" (ngSubmit)="onSubmit()" class="barnch-form pad">
+			<div class="row">
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline" class="col">
+						<mat-label>Branch Name</mat-label>
+						<input matInput formControlName="name" name="name">
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline" class="col">
+						<mat-label>Location</mat-label>
+						<input matInput formControlName="location" name="location">
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline" class="col">
+						<mat-label>City</mat-label>
+						<input matInput formControlName="city" name="city">
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline" class="col">
+						<mat-label>State</mat-label>
+						<input matInput formControlName="state" name="state">
+					</mat-form-field>
+				</div>
+			</div>
+			<div align="end">
+				<button mat-raised-button [disabled]="branchForm.invalid">Add Branch</button>
+
+			</div>
+		</form>
+	</div>
+
+	<div class="branch-wra card">
+		<h2>Branch Lists</h2>
+		<div class="overflow">
+			<table class="table" *ngIf="branches.length > 0">
+				<thead>
+					<tr>
+						<th>Branch Name</th>
+						<th>Location</th>
+						<th>City</th>
+						<th>State</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let branch of branches">
+						<td>{{ branch.name }}</td>
+						<td>{{ branch.location }}</td>
+						<td>{{ branch.city }}</td>
+						<td>{{ branch.state }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</div>

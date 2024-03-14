@@ -1,0 +1,23 @@
+.card{
+    padding: 0;
+    border-radius: 8px;
+    background-color: white;
+    margin-top: 20px;
+    position: relative;
+    h2{
+        background-color: #3F50B530;
+        padding: 10px;
+        width: 100%;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 5px;
+    }
+    .sent{
+        color: rgb(238, 163, 42);
+    }
+    .seen{
+        color: rgb(49, 153, 198);
+    }
+    .ack{
+        color: green;
+    }
+}

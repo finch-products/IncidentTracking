@@ -1,0 +1,69 @@
+<div class="container p-4">
+	<div class="card">
+		<h2>Add Department</h2>
+		<form [formGroup]="deptForm" (ngSubmit)="onSubmit()" class="user-form pad">
+			<div class="row">
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>Department Name</mat-label>
+						<input matInput formControlName="departmentName" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>Location</mat-label>
+						<input matInput formControlName="location" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>City</mat-label>
+						<input matInput formControlName="city" required>
+					</mat-form-field>
+				</div>
+
+				<div class="col-12 col-sm-6 col-lg-3">
+					<mat-form-field appearance="outline">
+						<mat-label>Pincode</mat-label>
+						<input matInput formControlName="pincode" required>
+					</mat-form-field>
+				</div>
+				<div class="col-12 col-lg-9">
+					<mat-form-field appearance="outline">
+						<mat-label>Address</mat-label>
+						<textarea matInput formControlName="address" required></textarea>
+					</mat-form-field>
+				</div>
+			</div>
+			<div align="end">
+				<button mat-raised-button type="submit" [disabled]="deptForm.invalid">Add Department</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="card mt-3">
+		<h2>Department List</h2>
+		<div class="overflow">
+			<table class="table" *ngIf="depts.length > 0">
+				<thead>
+					<tr>
+						<th>Department Name</th>
+						<th>Location</th>
+						<th>City</th>
+						<th>Pincode</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let dept of depts">
+						<td>{{ dept.departmentName }}</td>
+						<td>{{ dept.location }}</td>
+						<td>{{ dept.city }}</td>
+						<td>{{ dept.pincode }}</td>
+						<td>{{ dept.address }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

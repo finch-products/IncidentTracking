@@ -1,0 +1,19 @@
+[
+  {
+      "id": 1,
+      "file": "notice-1.jpeg",
+      "allBranches": true,
+      "selectedBranch": null,
+      "sentOn": "2023-05-10T10:20:30",
+      "status": "Successful"
+  },
+  {
+      "id": 2,
+      "file": "notice-2.jpeg",
+      "allBranches": false,
+      "selectedBranch": "Bellandur",
+      "sentOn": "2023-05-10T11:20:30",
+      "status": "Successful"
+  }
+]
+
