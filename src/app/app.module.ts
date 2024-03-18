@@ -45,6 +45,8 @@ import { InvestigatorsComponent } from './investigators/investigators.component'
 import { CaseManagementComponent } from './case-management/case-management.component';
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { TopnavComponent } from './topnav/topnav.component';
 @NgModule({
   declarations: [
     AuthComponent,
@@ -62,7 +64,9 @@ import { SearchComponent } from './search/search.component';
     InvestigatorsComponent,
     CaseManagementComponent,
     ReportComponent,
-    SearchComponent
+    SearchComponent,
+    SidenavComponent,
+    TopnavComponent
   ],
   imports: [
     BrowserModule,

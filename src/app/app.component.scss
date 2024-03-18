@@ -1,3 +1,31 @@
+@import '/src/app/variable.scss';
+
+.main-content{
+  max-height: 100vh; 
+  overflow-x: scroll;
+  width: calc(100vw - $sidenavWidth);
+  margin-top: $topnavHeight;
+}
+.main-sidenav{
+  width: $sidenavWidth;
+}
+
+@media screen and (max-width: $responsideWidth) {
+  .main-content{
+    width: 100vw;
+  }
+  .main-sidenav{
+    z-index: 100;
+    position: absolute;
+    width: 0px;
+  }
+  .sidenav{
+    position: relative;
+    top: 0px;
+    left: -$sidenavWidth;
+  }
+}
+
 mat-toolbar {
   display: flex;
   justify-content: space-between;
