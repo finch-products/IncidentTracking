@@ -1,0 +1,47 @@
+@import '/src/app/variable.scss';
+
+.sidenav-container{
+    max-width: $sidenavWidth;
+    width: $sidenavWidth;
+    background-color: white;
+    max-height: 100vh;
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    .brand-logo{
+        padding: 15px;
+        h2{
+            margin: 0px 0px 0px 10px;
+            color: #00448E;
+        }
+    }
+    .menu-items{
+        margin-top: 10px;
+    }
+    .item{
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+        &:hover{
+            background-color: #eee;
+        }
+        .item-icon{
+            color: #555;
+        }
+        .item-icon-main{
+            max-height: 20px;
+            max-width: 20px;
+            width: 20px;
+            i{
+                color: #555;
+                font-size: 20px;
+            }
+        }
+        
+        .item-text{
+            margin-left: 25px;
+            font-weight: bold;
+        }
+    }
+    
+}
