@@ -1,7 +1,7 @@
 @import '/src/app/variable.scss';
 
 .main-content{
-  max-height: 100vh; 
+  max-height: calc(100vh - $topnavHeight); 
   overflow-x: scroll;
   width: calc(100vw - $sidenavWidth);
   margin-top: $topnavHeight;

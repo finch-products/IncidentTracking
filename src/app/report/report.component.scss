@@ -34,7 +34,10 @@ button:hover {
 .report-image{
   background-color: white;
   padding: 20px;
-  margin: 20px;
-  margin-top: 25px;
+  // margin-top: 25px;
   border-radius: 10px;
+  // display: inline;
+}
+.report-image-parent{
+  padding: 10px;
 }

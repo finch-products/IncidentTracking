@@ -38,25 +38,27 @@ export class ReportComponent {
     this.cases = cases;
     this.initTATByDepartmentChart();
     this.prepareFraudCasesData();
+    this.filterData();
+    this.filterDeptData();
+    this.filterStatusData();
   }
   constructor() {
     const today = new Date();
-    const oneMonthAgo = new Date(
-      today.getFullYear(),
-      today.getMonth() - 1,
-      today.getDate()
-    );
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(today.getFullYear()-1);
+
     this.searchForm = new FormGroup({
-      startDate: new FormControl(''), // Initialize your form controls
-      endDate: new FormControl(''),
+      startDate: new FormControl(oneYearAgo), // Initialize your form controls
+      endDate: new FormControl(today),
     });
+
     this.deptsearchForm = new FormGroup({
-      deptStartDate: new FormControl(''), // Use different names for form controls
-      deptEndDate: new FormControl(''),
+      deptStartDate: new FormControl(oneYearAgo), // Use different names for form controls
+      deptEndDate: new FormControl(today),
     });
     this.statusSearchForm = new FormGroup({
-      statusStartDate: new FormControl(''),
-      statusEndDate: new FormControl(''),
+      statusStartDate: new FormControl(oneYearAgo),
+      statusEndDate: new FormControl(today),
     });
   }
 
@@ -190,17 +192,18 @@ export class ReportComponent {
     const filteredCases = this.filterCasesByDate(startDate, endDate);
 
     const casesByDepartment = this.aggregateCasesByDepartment(filteredCases);
+    const colors = ['#BCE893', '#00D09B', '#00A6E1', '#556BFA', '#9191E9', '#52528C', '#FFB040', '#893168', '#E84866', '#EFE000']
+    var casesByDepartmentArray = Object.entries(casesByDepartment).sort((a,b)=>b[1]-a[1]);
 
     const data: ChartData = {
-      labels: Object.keys(casesByDepartment),
+      labels: casesByDepartmentArray.map(val => val[0]),
       datasets: [
         {
           label: 'Cases by Department',
-          data: Object.values(casesByDepartment),
-          backgroundColor: [
-            // Your colors
-          ],
-          borderWidth: 1,
+          data: casesByDepartmentArray.map(val => val[1]),
+          backgroundColor: colors.slice(0, Object.values(casesByDepartment).length),
+          borderWidth: 0,
+          radius: 150,
         },
       ],
     };
@@ -217,6 +220,7 @@ export class ReportComponent {
           position: 'right',
         },
       },
+      maintainAspectRatio: false,
     };
 
     const config: ChartConfiguration = {
