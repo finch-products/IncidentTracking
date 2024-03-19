@@ -1,24 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Case } from '../model/dashboard.model';
 import { cases } from '../mock-data';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit{
-
+export class SearchComponent implements OnInit, AfterViewInit {
   cases: Case[] = [];
   searchForm: FormGroup;
-  private filteredDataSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.cases);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  private filteredDataSubject: BehaviorSubject<any[]> = new BehaviorSubject<
+    any[]
+  >(this.cases);
   filteredData$: Observable<any[]> = this.filteredDataSubject.asObservable();
 
   filteredData = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['caseNo', 'desc', 'empNo', 'name', 'department', 'city', 'building', 'reportedDate', 'closedDate', 'status'];
+   columnHeaders: { [key: string]: string } = {
+    caseNo: 'Unique Case No',
+    name: 'Name',
+    department: 'Department',
+    building: 'Building',
+    reportedDate: 'Reported Date',
+    closedDate: 'Closed Date',
+    status: 'Status',
+  };
+
+  displayedColumns: string[] = [
+    'caseNo',
+    'name',
+    'department',
+    'building',
+    'reportedDate',
+    'closedDate',
+    'status',
+  ];
+
 
   departments: any[] = [
     { name: 'Department A' },
@@ -30,7 +54,11 @@ export class SearchComponent implements OnInit{
     { name: 'Department G' },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private paginatorIntl: MatPaginatorIntl
+  ) {
     this.searchForm = this.fb.group({
       caseNo: [''],
       investigator: [''],
@@ -43,6 +71,9 @@ export class SearchComponent implements OnInit{
       city: [''],
     });
 
+    this.paginatorIntl.itemsPerPageLabel = 'Items per page:';
+    this.paginatorIntl.nextPageLabel = 'Next page';
+    this.paginatorIntl.previousPageLabel = 'Previous page';
   }
 
   ngOnInit(): void {
@@ -53,19 +84,30 @@ export class SearchComponent implements OnInit{
   onSearch(): void {
     const formValue = this.searchForm.value;
 
-    this.filteredData.data = this.cases.filter(record => {
+    this.filteredData.data = this.cases.filter((record) => {
       const reportedDate = new Date(record.reportedDate);
-      const quickDateFilter = formValue.quickDate ? new Date(Date.now() - parseInt(formValue.quickDate) * 24 * 60 * 60 * 1000) : null;
-      const dateFromFilter = formValue.dateFrom ? new Date(formValue.dateFrom) : null;
+      const quickDateFilter = formValue.quickDate
+        ? new Date(
+            Date.now() - parseInt(formValue.quickDate) * 24 * 60 * 60 * 1000
+          )
+        : null;
+      const dateFromFilter = formValue.dateFrom
+        ? new Date(formValue.dateFrom)
+        : null;
       const dateToFilter = formValue.dateTo ? new Date(formValue.dateTo) : null;
 
       return (
         (formValue.caseNo ? record.caseNo.includes(formValue.caseNo) : true) &&
-        (formValue.investigator ? record.name.includes(formValue.investigator) : true) &&
-        (formValue.location ? record.building.includes(formValue.location) : true) &&
+        (formValue.investigator
+          ? record.name.includes(formValue.investigator)
+          : true) &&
+        (formValue.location
+          ? record.building.includes(formValue.location)
+          : true) &&
         (formValue.status ? record.status === formValue.status : true) &&
-        (formValue.department ? record.department === formValue.department : true) &&
-        (formValue.department ? record.department === formValue.department : true) &&
+        (formValue.department
+          ? record.department === formValue.department
+          : true) &&
         (formValue.city ? record.city === formValue.city : true) &&
         (!quickDateFilter || reportedDate >= quickDateFilter) &&
         (!dateFromFilter || reportedDate >= dateFromFilter) &&
@@ -74,7 +116,15 @@ export class SearchComponent implements OnInit{
     });
   }
 
+  ngAfterViewInit() {
+    this.filteredData.paginator = this.paginator; // Assign paginator to your filtered data source
+  }
+
   applyFilter(filterValue: string): void {
     this.filteredData.filter = filterValue.trim().toLowerCase();
+  }
+
+  navigateToCaseDetail(row: any): void {
+    this.router.navigate(['/case-details']);
   }
 }

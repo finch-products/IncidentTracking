@@ -1,16 +1,16 @@
 <div class="dashboard">
-  
   <div class="dashboard-container">
     <div class="sidebar">
       <mat-form-field appearance="fill">
         <mat-label>Search Departments</mat-label>
-        <input matInput type="text" [(ngModel)]="searchText" placeholder="Search"  (input)="filterDepartments()" >
+        <input matInput type="text" [(ngModel)]="searchText" placeholder="Search" (input)="filterDepartments()">
       </mat-form-field>
       <mat-nav-list>
         <mat-list-item [class.selected-department]="!selectedDepartment" (click)="selectDepartment(null)">
           <span mat-line>All Departments</span>
         </mat-list-item>
-        <mat-list-item *ngFor="let department of filteredDepartments" [class.selected-department]="department.name === selectedDepartment" (click)="selectDepartment(department)">
+        <mat-list-item *ngFor="let department of filteredDepartments"
+          [class.selected-department]="department.name === selectedDepartment" (click)="selectDepartment(department)">
           <span mat-line>{{ department.name }}</span>
         </mat-list-item>
       </mat-nav-list>
@@ -22,37 +22,46 @@
           <div class="card-title">
             Total Cases
           </div>
-          <div class="card-count">  
-            {{ totalCases }}
+          <div class="card-content">
+            <div class="card-count">
+              {{ totalCases }}
+            </div>
+            <img src="assets/monitoring.png" alt="Graph" class="graph-placeholder">
           </div>
         </mat-card>
         <mat-card (click)="showOpenCases()" class="open-card">
           <div class="card-title">
             Open Cases
           </div>
-          <div class="card-count">  
-            {{ openCases }}
+          <div class="card-content">
+            <div class="card-count">
+              {{ openCases }}
+            </div>
+            <img src="assets/monitoring.png" alt="Graph" class="graph-placeholder">
           </div>
         </mat-card>
         <mat-card (click)="showClosedCases()" class="closed-card">
           <div class="card-title">
             Closed Cases
           </div>
-          <div class="card-count">  
-            {{ closedCases }}
+          <div class="card-content">
+            <div class="card-count">
+              {{ closedCases }}
+            </div>
+            <img src="assets/monitoring.png" alt="Graph" class="graph-placeholder">
           </div>
         </mat-card>
       </div>
       <div class="case-details">
-        <table mat-table [dataSource]="filteredCases">
-          <!-- Define columns -->
-          <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-            <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
-            <td mat-cell *matCellDef="let caseItem"> {{ caseItem[column] }} </td>
+        <mat-table [dataSource]="filteredCases">
+          <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+            <mat-header-cell *matHeaderCellDef>{{ columnHeaders[col] }}</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element[col] }}</mat-cell>
           </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row (click)="navigateToCaseDetail(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSize]="15" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
       </div>
     </div>
   </div>

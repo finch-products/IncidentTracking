@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
-import { DocumentUploadComponent } from './admin/document-upload/document-upload.component';
-import { UserManagementComponent } from './admin/user-management/user-management.component';
-import { NoticeDetailComponent } from './branch-admin/notice-detail/notice-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserFormComponent } from './branch-admin/user-form/user-form.component';
+import { UserFormComponent } from './user-form/user-form.component';
 import { DepartmentComponent } from './department/department.component';
 import { InvestigatorsComponent } from './investigators/investigators.component';
 import { CaseManagementComponent } from './case-management/case-management.component';
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
 import { AlertComponent } from './alert/alert.component';
+import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
@@ -23,6 +21,7 @@ const routes: Routes = [
   { path: 'user-management', component: UserFormComponent },
   { path: 'cases', component: CaseManagementComponent },
   { path: 'alerts', component: AlertComponent },
+  { path: 'case-details', component: CaseDetailsComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

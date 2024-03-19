@@ -185,3 +185,20 @@ tr:nth-child(even) {
   color: #000000;
   font-weight: bold;
 }
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card-count, .graph-placeholder {
+  // flex: 1;
+  text-align: center;
+}
+
+.graph-placeholder {
+  margin-right: 10px;
+  width: 30px;
+}

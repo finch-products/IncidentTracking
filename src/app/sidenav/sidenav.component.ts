@@ -50,6 +50,18 @@ export class SidenavComponent {
       iconText: 'groups',
       text: 'Users Management',
       url: '/user-management'
+    },
+    {
+      iconClass: 'material-icons',
+      iconText: 'notifications',
+      text: 'Alerts/Reminders',
+      url: '/alerts'
+    },
+    {
+      iconClass: 'material-icons',
+      iconText: 'notifications',
+      text: 'Case Details',
+      url: '/case-details'
     }
   ]
 

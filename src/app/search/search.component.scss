@@ -1,12 +1,16 @@
-.search-feild{
+.search-feild {
   background-color: #fff;
-    padding: 10px;
-    text-align: right;
-    margin-top: 40px;
-    mat-form-field{
-      width: 20%;
-    }
+  padding: 10px;
+  text-align: right;
+  margin-top: 40px;
+  mat-form-field {
+    width: 25%;
+  }
 }
-.search{
+.search {
   padding: 15px;
+}
+
+mat-row {
+  cursor: pointer;
 }

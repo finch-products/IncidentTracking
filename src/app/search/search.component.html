@@ -76,12 +76,12 @@
   </div>
   <mat-table [dataSource]="filteredData">
     <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
-      <mat-header-cell *matHeaderCellDef>{{ col }}</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>{{ columnHeaders[col] }}</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element[col] }}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row  (click)="navigateToCaseDetail(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-  <mat-paginator [length]="filteredData.data.length" [pageSize]="15" aria-label="Select page of GitHub search results"></mat-paginator>
+  <mat-paginator [pageSize]="15" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
 </div>

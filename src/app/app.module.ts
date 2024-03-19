@@ -27,16 +27,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth.service';
-import { DocumentUploadComponent } from './admin/document-upload/document-upload.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
-import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NotificationBellComponent } from './branch-admin/notification-bell/notification-bell.component';
-import { NoticeDetailComponent } from './branch-admin/notice-detail/notice-detail.component';
-import { BranchAdminComponent } from './branch-admin/branch-admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmailTemplateComponent } from './email-template/email-template.component';
-import { UserFormComponent } from './branch-admin/user-form/user-form.component';
+import { UserFormComponent } from './user-form/user-form.component';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -45,24 +40,17 @@ import { InvestigatorsComponent } from './investigators/investigators.component'
 import { CaseManagementComponent } from './case-management/case-management.component';
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
-<<<<<<< HEAD
 import { AlertComponent } from './alert/alert.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
-=======
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopnavComponent } from './topnav/topnav.component';
->>>>>>> 6de460ef27a74c2e52f8f82625b7c7cd50d6dd2c
+import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 @NgModule({
   declarations: [
     AuthComponent,
     AppComponent,
-    AdminComponent,
-    DocumentUploadComponent,
     UserManagementComponent,
-    NotificationBellComponent,
-    NoticeDetailComponent,
-    BranchAdminComponent,
     DashboardComponent,
     EmailTemplateComponent,
     UserFormComponent,
@@ -71,13 +59,11 @@ import { TopnavComponent } from './topnav/topnav.component';
     CaseManagementComponent,
     ReportComponent,
     SearchComponent,
-<<<<<<< HEAD
     AlertComponent,
-    SafeHtmlPipe
-=======
+    SafeHtmlPipe,
     SidenavComponent,
-    TopnavComponent
->>>>>>> 6de460ef27a74c2e52f8f82625b7c7cd50d6dd2c
+    TopnavComponent,
+    CaseDetailsComponent
   ],
   imports: [
     BrowserModule,
