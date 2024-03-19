@@ -1,5 +1,18 @@
-<div *ngIf="showHeader">
-  <mat-sidenav-container>
+<div *ngIf="showHeader" class="main-container">
+  <div class="flex-r">
+    <div class="main-sidenav">
+      <div class="sidenav">
+        <app-sidenav></app-sidenav>
+      </div>
+    </div>
+    <div class="main-content">
+      <app-topnav></app-topnav>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  
+  
+  <!-- <mat-sidenav-container>
     <mat-sidenav #sidenav mode="over" class="sidenav">
       <mat-nav-list>
         <a class="side-nav-list" routerLink="/dashboard" (click)="sidenav.close()">Dashboard</a>
@@ -34,13 +47,14 @@
           <a routerLink="/login" (click)="logout()">Logout</a>
         </nav>
       </mat-toolbar>
-      <router-outlet></router-outlet>
+      
     </mat-sidenav-content>
-  </mat-sidenav-container>
+  </mat-sidenav-container> -->
+  
 </div>
 
 <div *ngIf="!showHeader">
-
+  
   <router-outlet></router-outlet>
 </div>
 <div>

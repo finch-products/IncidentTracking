@@ -1,0 +1,21 @@
+<div class="sidenav-container">
+    <div class="brand-logo">
+        <div class="header-content">
+            <a href="/dashboard"><img src="assets/logo.png" alt="HRHQ Logo" class="header-logo" height="40px"></a>
+            <h2>Incident Tracking</h2>
+          </div>
+    </div>
+    <div class="menu-items">
+        <div class="item flex-r aic" 
+            *ngFor="let item of menuItems" 
+            (click)="menuClick(item)"
+            [routerLink]="item.url"
+        >
+            <div class="item-icon-main">
+                <i [class]="item.iconClass">{{item.iconText}}</i>
+            </div>
+            <div class="item-text">{{item.text}}</div>
+        </div>
+        
+    </div>
+</div>

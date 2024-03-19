@@ -1,5 +1,5 @@
-<div class="search container">
-  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+<div class="search">
+  <form [formGroup]="searchForm" class="card pad" (ngSubmit)="onSearch()">
     <div class="row">
       <div class="col-12 col-sm-6 col-lg-3">
         <mat-form-field appearance="fill">
@@ -83,4 +83,5 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <mat-paginator [length]="filteredData.data.length" [pageSize]="15" aria-label="Select page of GitHub search results"></mat-paginator>
 </div>

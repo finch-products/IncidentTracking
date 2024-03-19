@@ -1,11 +1,23 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { registerables } from 'chart.js';
-Chart.register(...registerables);
-import { ChartData, ChartConfiguration, ChartOptions } from 'chart.js';
+import { ChartDataset } from 'chart.js';
+import {
+  ChartData,
+  ChartConfiguration,
+  ChartOptions,
+  ChartTypeRegistry,
+} from 'chart.js';
 import { Case } from '../model/dashboard.model';
 import { cases } from '../mock-data';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+// interface ChartDataset {
+//   label: string;
+//   data: number[];
+//   fill: boolean;
+//   borderColor: string;
+//   tension: number;
+// }
 
 @Component({
   selector: 'app-report',
@@ -26,26 +38,27 @@ export class ReportComponent {
     this.cases = cases;
     this.initTATByDepartmentChart();
     this.prepareFraudCasesData();
-    this.initCasesByAgeChart();
+    this.filterData();
+    this.filterDeptData();
+    this.filterStatusData();
   }
   constructor() {
     const today = new Date();
-    const oneMonthAgo = new Date(
-      today.getFullYear(),
-      today.getMonth() - 1,
-      today.getDate()
-    );
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(today.getFullYear()-1);
+
     this.searchForm = new FormGroup({
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
+      startDate: new FormControl(oneYearAgo), // Initialize your form controls
+      endDate: new FormControl(today),
     });
+
     this.deptsearchForm = new FormGroup({
-      deptStartDate: new FormControl(''),
-      deptEndDate: new FormControl(''),
+      deptStartDate: new FormControl(oneYearAgo), // Use different names for form controls
+      deptEndDate: new FormControl(today),
     });
     this.statusSearchForm = new FormGroup({
-      statusStartDate: new FormControl(''),
-      statusEndDate: new FormControl(''),
+      statusStartDate: new FormControl(oneYearAgo),
+      statusEndDate: new FormControl(today),
     });
   }
 
@@ -63,11 +76,11 @@ export class ReportComponent {
     ).getContext('2d');
 
     if (this.casesOverTimeChart) {
-      this.casesOverTimeChart.destroy();
+      this.casesOverTimeChart.destroy(); // Correctly destroying previous chart instance
     }
     const canvas = document.getElementById('casesOverTimeCanvas');
     if (canvas) {
-      canvas.style.display = 'block';
+      canvas.style.display = 'block'; // Change to 'block' to make it visible
     }
 
     if (ctx) {
@@ -104,13 +117,13 @@ export class ReportComponent {
       };
 
       const config: ChartConfiguration<'line'> = {
-        type: 'line',
+        type: 'line', // Specify the type explicitly
         data: data,
         options: {
           scales: {
             y: {
               ticks: {
-                stepSize: 2,
+                stepSize: 2, // Customize the step size here
               },
             },
           },
@@ -126,19 +139,21 @@ export class ReportComponent {
     const startDate = new Date(this.searchForm.get('startDate')!.value);
     const endDate = new Date(this.searchForm.get('endDate')!.value);
 
+    // Basic date validation
     if (
       isNaN(startDate.getTime()) ||
       isNaN(endDate.getTime()) ||
       startDate > endDate
     ) {
       console.error('Invalid date range');
-      return;
+      return; // Early return on invalid date
     }
 
     const filteredCases = this.cases.filter((c) => {
       const reportedDate = new Date(c.reportedDate);
       return reportedDate >= startDate && reportedDate <= endDate;
     });
+    // Passing user-selected dates to the chart initialization
     this.initCasesOverTimeChart(filteredCases, startDate, endDate);
   }
 
@@ -147,9 +162,11 @@ export class ReportComponent {
     startDate: Date,
     endDate: Date
   ): number[] {
+    // Initialize array to hold monthly case counts
     console.log('aggregateMonthlyCaseCounts function called');
     const monthlyCounts = Array(12).fill(0);
 
+    // Iterate through cases and count cases for each month within the date range
     cases.forEach((c) => {
       const reportedDate = new Date(c.reportedDate);
       if (reportedDate >= startDate && reportedDate <= endDate) {
@@ -175,15 +192,18 @@ export class ReportComponent {
     const filteredCases = this.filterCasesByDate(startDate, endDate);
 
     const casesByDepartment = this.aggregateCasesByDepartment(filteredCases);
+    const colors = ['#BCE893', '#00D09B', '#00A6E1', '#556BFA', '#9191E9', '#52528C', '#FFB040', '#893168', '#E84866', '#EFE000']
+    var casesByDepartmentArray = Object.entries(casesByDepartment).sort((a,b)=>b[1]-a[1]);
 
     const data: ChartData = {
-      labels: Object.keys(casesByDepartment),
+      labels: casesByDepartmentArray.map(val => val[0]),
       datasets: [
         {
           label: 'Cases by Department',
-          data: Object.values(casesByDepartment),
-          backgroundColor: [],
-          borderWidth: 1,
+          data: casesByDepartmentArray.map(val => val[1]),
+          backgroundColor: colors.slice(0, Object.values(casesByDepartment).length),
+          borderWidth: 0,
+          radius: 150,
         },
       ],
     };
@@ -200,6 +220,7 @@ export class ReportComponent {
           position: 'right',
         },
       },
+      maintainAspectRatio: false,
     };
 
     const config: ChartConfiguration = {
@@ -215,8 +236,10 @@ export class ReportComponent {
     const startDate = new Date(this.deptsearchForm.get('deptStartDate')!.value);
     const endDate = new Date(this.deptsearchForm.get('deptEndDate')!.value);
 
+    // Verify dates are correct
     console.log(startDate, endDate);
 
+    // Proceed only if both dates are valid
     if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
       this.initCasesByDepartmentChart(startDate, endDate);
     } else {
@@ -225,6 +248,7 @@ export class ReportComponent {
   }
 
   private filterCasesByDate(startDate: Date, endDate: Date): any[] {
+    // Filter cases based on the selected date range
     return this.cases.filter((c) => {
       const reportedDate = new Date(c.reportedDate);
       return reportedDate >= startDate && reportedDate <= endDate;
@@ -232,7 +256,9 @@ export class ReportComponent {
   }
 
   private aggregateCasesByDepartment(cases: any[]): { [key: string]: number } {
+    // Aggregate cases by department
     return cases.reduce((acc: { [key: string]: number }, curr: any) => {
+      // Make sure 'Case' type is correctly defined or use 'any'
       acc[curr.department] = (acc[curr.department] || 0) + 1;
       return acc;
     }, {});
@@ -299,7 +325,7 @@ export class ReportComponent {
       startDate > endDate
     ) {
       console.error('Invalid date range');
-      return;
+      return; // Early return on invalid date
     }
 
     const filteredCases = this.cases.filter((c) => {
@@ -307,7 +333,7 @@ export class ReportComponent {
       return reportedDate >= startDate && reportedDate <= endDate;
     });
 
-    this.initCasesByStatusChart(filteredCases);
+    this.initCasesByStatusChart(filteredCases); // Pass the filtered cases to the chart initialization
   }
 
   initTATByDepartmentChart(): void {
@@ -332,6 +358,7 @@ export class ReportComponent {
               'rgba(75, 192, 192, 0.5)',
               'rgba(153, 102, 255, 0.5)',
               'rgba(255, 159, 64, 0.5)',
+              // Add more colors if needed
             ],
             borderColor: [
               'rgba(255, 99, 132, 1)',
@@ -340,6 +367,7 @@ export class ReportComponent {
               'rgba(75, 192, 192, 1)',
               'rgba(153, 102, 255, 1)',
               'rgba(255, 159, 64, 1)',
+              // Add more colors if needed
             ],
             borderWidth: 1,
           },
@@ -375,7 +403,7 @@ export class ReportComponent {
             : new Date().getTime();
         return (
           acc + Math.abs(closedDate - reportedDate) / (1000 * 60 * 60 * 24)
-        );
+        ); // Convert milliseconds to days
       }, 0);
       const averageTAT = totalTAT / departmentCases.length;
       averageTATs.push(averageTAT);
@@ -383,108 +411,47 @@ export class ReportComponent {
     return averageTATs;
   }
 
-  prepareFraudCasesData(): void {
-    const caseCountsByEmployee = this.cases.reduce(
-      (acc: { [key: string]: number }, { empNo }) => {
-        acc[empNo] = (acc[empNo] || 0) + 1;
-        return acc;
-      },
-      {}
-    );
+  // Assuming `cases` is your dataset and each case has an `employeeId` property
+prepareFraudCasesData(): void {
+  const caseCountsByEmployee = this.cases.reduce((acc: { [key: string]: number }, { empNo }) => {
+    acc[empNo] = (acc[empNo] || 0) + 1;
+    return acc;
+  }, {});
 
-    const labels = [];
-    const data = [];
-    for (const [empNo, count] of Object.entries(caseCountsByEmployee)) {
-      if (count > 1) {
-        labels.push(empNo);
-        data.push(count);
+  const labels = [];
+  const data = [];
+  for (const [empNo, count] of Object.entries(caseCountsByEmployee)) {
+    if (count > 1) {
+      labels.push(empNo); // Assuming employeeId is meaningful to the viewer; otherwise, use employee names
+      data.push(count);
+    }
+  }
+
+  this.initFraudCasesChart(labels, data);
+}
+
+initFraudCasesChart(labels: string[], data: number[]): void {
+  const ctx = document.getElementById('fraudCasesCanvas') as HTMLCanvasElement;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Number of Fraud Cases',
+        data,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
       }
     }
+  });
+}
 
-    this.initFraudCasesChart(labels, data);
-  }
-
-  initFraudCasesChart(labels: string[], data: number[]): void {
-    const ctx = document.getElementById(
-      'fraudCasesCanvas'
-    ) as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Number of Fraud Cases',
-            data,
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-  }
-
-  initCasesByAgeChart(): void {
-    const ageGroups = ['0-30', '31-60', '61-90', '91-120', '121+'];
-    const ageGroupCounts = ageGroups.map(() => 0);
-
-    const currentDate = new Date();
-
-    this.cases.forEach((caseItem) => {
-      const reportedDate = new Date(caseItem.reportedDate);
-      const ageInDays = Math.floor(
-        (currentDate.getTime() - reportedDate.getTime()) / (1000 * 60 * 60 * 24)
-      );
-
-      if (ageInDays <= 30) ageGroupCounts[0]++;
-      else if (ageInDays <= 60) ageGroupCounts[1]++;
-      else if (ageInDays <= 90) ageGroupCounts[2]++;
-      else if (ageInDays <= 120) ageGroupCounts[3]++;
-      else ageGroupCounts[4]++;
-    });
-    const canvasElement = document.getElementById('casesByAgeCanvas');
-    if (!(canvasElement instanceof HTMLCanvasElement)) {
-      console.error('Canvas element not found or is not a canvas element');
-      return;
-    }
-    const ctx = canvasElement.getContext('2d');
-    if (!ctx) {
-      console.error('Unable to get canvas context');
-      return;
-    }
-    if (!ctx) {
-      console.error('Canvas context not supported');
-      return;
-    }
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ageGroups,
-        datasets: [
-          {
-            label: 'Cases by Age (days)',
-            data: ageGroupCounts,
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-  }
 }

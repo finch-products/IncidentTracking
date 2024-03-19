@@ -1,51 +1,51 @@
-.card{
+.card {
   padding: 0;
   border-radius: 8px;
   background-color: white;
   margin-top: 20px;
 
-  h2{
-      background-color: #3F50B530;
-      padding: 5px;
-      width: 100%;
-      border-radius: 8px 8px 0 0;
-      margin-bottom: 5px;
+  h2 {
+    background-color: #3F50B530;
+    padding: 5px;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 5px;
   }
 }
-.table1 td, .table1 th{
+
+.table1 td,
+.table1 th {
   text-align: center;
 }
 
-.red-bold{
-color: red;
-font-weight: bold;
-}
-
-.red{
-color: red;
-font-weight: normal;
+.red {
+  color: red;
+  font-weight: normal;
 }
 
 .branch-notice-btn {
-background-color: #ADD8E6 !important; /* Light grey for common notices */
-margin: 0 10px 10px 0;
+  background-color: #ADD8E6 !important;
+  /* Light grey for common notices */
+  margin: 0 10px 10px 0;
 }
 
 .common-notice-btn {
-background-color: #ffbf00 !important; /* Light green for branch-specific notices */
-margin: 0 10px 10px 0;
+  background-color: #ffbf00 !important;
+  /* Light green for branch-specific notices */
+  margin: 0 10px 10px 0;
 }
 
-span, .pending a{
-margin-right: 10px;
+span,
+.pending a {
+  margin-right: 10px;
 }
 
 //incident tracking
 /* Dashboard Container */
 .dashboard-container {
-display: flex;
-height: 100vh;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Sidebar styles */
@@ -53,118 +53,135 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #ffff;
   color: #ffffff;
   min-width: 200px;
+  display: none;
   border: 1px solid #F0F2F5;
-  mat-form-field{
+
+  mat-form-field {
     padding: 10px;
   }
 }
 
 .mat-nav-list .mat-list-item {
-cursor: pointer;
-border-radius: 4px;
-margin-bottom: 5px;
-transition: background-color 0.3s;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
 }
 
 .mat-nav-list .mat-list-item:hover,
 .mat-nav-list .mat-list-item.selected {
-background-color: red;
+  background-color: red;
 }
 
 .mat-form-field {
-width: 100%;
-margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 /* Main content styles */
 .main-content {
-flex-grow: 1;
-padding: 20px;
-background-color: #F0F2F5;
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #F0F2F5;
 }
 
 /* Summary Cards */
 .summary-cards {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-gap: 20px;
-margin-bottom: 20px;
-mat-card{
-  padding: 20px;
-  cursor: pointer;
-  color: #fff;
-  &.total-card{
-    background-color: #17a2b8;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+
+  mat-card {
+    padding: 20px;
+    cursor: pointer;
+    color: #fff;
+
+    .card-title{
+      font-weight: bold;
+      color: #555;
+    }
+    .card-count{
+      font-size: 50px;
+      line-height: 50px;
+      margin-top: 10px;
+    }
+
+    &.total-card {
+      background-color: #fff;
+      .card-count{
+        color: #17a2b8;
+      }
+    }
+
+    &.open-card {
+      background-color: #fff;
+      .card-count{
+        color: #dc3545;
+      }
+    }
+
+    &.closed-card {
+      background-color: #fff;
+      .card-count{
+        color: #28a745;
+      }
+    }
   }
-  &.open-card{
-    background-color: #dc3545;
-  }
-  &.closed-card{
-    background-color: #28a745;
-  }
-}
 }
 
 .mat-card {
-cursor: pointer;
-transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .mat-card:hover {
-transform: scale(1.05);
-box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.mat-card-title {
-color: #2D3E50;
-}
-
-.mat-card-content {
-font-size: 24px;
-font-weight: bold;
-color: #2D3E50;
-}
 
 /* Case Details Table */
 .case-details {
-background-color: #ffffff;
-border-radius: 8px;
-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 table {
-width: 100%;
-border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th, td {
-text-align: left;
-padding: 8px;
+th,
+td {
+  text-align: left;
+  padding: 8px;
 }
 
 tr:nth-child(even) {
-background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-background: #888;
+  background: #888;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-background: #555;
+  background: #555;
 }
 
 .selected-department {
-background-color: #17a2b8;
-color: #000000;
-font-weight: bold;
+  background-color: #17a2b8;
+  color: #000000;
+  font-weight: bold;
 }

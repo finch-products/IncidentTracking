@@ -1,0 +1,19 @@
+@import '/src/app/variable.scss';
+
+
+.topnav{
+    padding: 5px;
+    position: fixed;
+    top: 0px;
+    width: calc(100vw - $sidenavWidth);
+    height: $topnavHeight;
+    font-weight: bold;
+    margin-bottom: $topnavHeight;
+}
+
+@media screen and (max-width: $responsideWidth) {
+    .topnav{
+        width: 100vw;
+        left: 0px;
+    }
+}

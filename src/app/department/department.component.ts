@@ -18,6 +18,7 @@ interface Department {
 
 export class DepartmentComponent {
   deptForm: FormGroup;
+  displayDepartmentForm: boolean = false;
 
   depts: Department[] = [
     {

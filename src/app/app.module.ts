@@ -45,9 +45,14 @@ import { InvestigatorsComponent } from './investigators/investigators.component'
 import { CaseManagementComponent } from './case-management/case-management.component';
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
+<<<<<<< HEAD
 import { AlertComponent } from './alert/alert.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
+=======
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { TopnavComponent } from './topnav/topnav.component';
+>>>>>>> 6de460ef27a74c2e52f8f82625b7c7cd50d6dd2c
 @NgModule({
   declarations: [
     AuthComponent,
@@ -66,8 +71,13 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     CaseManagementComponent,
     ReportComponent,
     SearchComponent,
+<<<<<<< HEAD
     AlertComponent,
     SafeHtmlPipe
+=======
+    SidenavComponent,
+    TopnavComponent
+>>>>>>> 6de460ef27a74c2e52f8f82625b7c7cd50d6dd2c
   ],
   imports: [
     BrowserModule,
