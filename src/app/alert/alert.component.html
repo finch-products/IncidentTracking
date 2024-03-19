@@ -1,0 +1,8 @@
+<div class="alert-container container">
+  <h2>Alerts & Reminders Templates</h2>
+  <div *ngFor="let alert of alerts">
+    <h3>{{ alert.type }} Template</h3>
+    <div [innerHtml]="alert.template | safeHtml"></div>
+    <hr>
+  </div>
+</div>

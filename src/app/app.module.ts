@@ -45,6 +45,9 @@ import { InvestigatorsComponent } from './investigators/investigators.component'
 import { CaseManagementComponent } from './case-management/case-management.component';
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
+import { AlertComponent } from './alert/alert.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -62,7 +65,9 @@ import { SearchComponent } from './search/search.component';
     InvestigatorsComponent,
     CaseManagementComponent,
     ReportComponent,
-    SearchComponent
+    SearchComponent,
+    AlertComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

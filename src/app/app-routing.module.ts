@@ -5,13 +5,13 @@ import { DocumentUploadComponent } from './admin/document-upload/document-upload
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { NoticeDetailComponent } from './branch-admin/notice-detail/notice-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EmailTemplateComponent } from './email-template/email-template.component';
 import { UserFormComponent } from './branch-admin/user-form/user-form.component';
 import { DepartmentComponent } from './department/department.component';
 import { InvestigatorsComponent } from './investigators/investigators.component';
 import { CaseManagementComponent } from './case-management/case-management.component';
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
+import { AlertComponent } from './alert/alert.component';
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'investigators', component: InvestigatorsComponent },
   { path: 'user-management', component: UserFormComponent },
   { path: 'cases', component: CaseManagementComponent },
-  { path: 'reminders', component: EmailTemplateComponent },
+  { path: 'alerts', component: AlertComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
