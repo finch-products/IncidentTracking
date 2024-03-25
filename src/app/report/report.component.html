@@ -1,9 +1,29 @@
 <div class="report-container">
-	<div class="fixed-download-section">
+	<!-- <div class="fixed-download-section">
 		<span>Download as</span>
 		<button mat-raised-button color="primary" (click)="downloadReport('pdf')">PDF/Excel</button>
+	</div> -->
+	<div class="report-head flex-r aic jcsb" style="padding: 0 20px;">
+		<div [formGroup]="searchForm">
+			<mat-form-field appearance="fill">
+				<mat-label>Start Date</mat-label>
+				<input matInput [matDatepicker]="pickerStart" formControlName="startDate" (dateChange)="filterData()">
+				<mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+				<mat-datepicker #pickerStart></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>End Date</mat-label>
+				<input matInput [matDatepicker]="pickerEnd" formControlName="endDate" (dateChange)="filterData()">
+				<mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+				<mat-datepicker #pickerEnd></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<button mat-raised-button color="primary" (click)="downloadReport('pdf')">
+			<mat-icon>download</mat-icon>
+			<span>Report</span>
+		</button>
 	</div>
-	<div class="flex-r pad">
+	<div class="flex-r pad" style="margin-top: -20px;">
 		<div class="report-image-parent w-50" style="min-width: 600px;">
 			<div class="report-image">
 				<h4>Cases Over Time</h4>

@@ -46,6 +46,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopnavComponent } from './topnav/topnav.component';
 import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
+import { EmployeeInvolvedComponent } from './case-management/employee-involved/employee-involved.component';
 @NgModule({
   declarations: [
     AuthComponent,
@@ -63,7 +64,8 @@ import { CaseDetailsComponent } from './case-management/case-details/case-detail
     SafeHtmlPipe,
     SidenavComponent,
     TopnavComponent,
-    CaseDetailsComponent
+    CaseDetailsComponent,
+    EmployeeInvolvedComponent
   ],
   imports: [
     BrowserModule,

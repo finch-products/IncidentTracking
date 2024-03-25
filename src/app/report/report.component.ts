@@ -39,8 +39,8 @@ export class ReportComponent {
     this.initTATByDepartmentChart();
     this.prepareFraudCasesData();
     this.filterData();
-    this.filterDeptData();
-    this.filterStatusData();
+    // this.filterDeptData();
+    // this.filterStatusData();
   }
   constructor() {
     const today = new Date();
@@ -135,7 +135,6 @@ export class ReportComponent {
   }
 
   filterData(): void {
-    console.log('filterData called');
     const startDate = new Date(this.searchForm.get('startDate')!.value);
     const endDate = new Date(this.searchForm.get('endDate')!.value);
 
@@ -155,6 +154,8 @@ export class ReportComponent {
     });
     // Passing user-selected dates to the chart initialization
     this.initCasesOverTimeChart(filteredCases, startDate, endDate);
+    this.filterDeptData();
+    this.filterStatusData();
   }
 
   aggregateMonthlyCaseCounts(
@@ -233,8 +234,8 @@ export class ReportComponent {
   }
 
   filterDeptData(): void {
-    const startDate = new Date(this.deptsearchForm.get('deptStartDate')!.value);
-    const endDate = new Date(this.deptsearchForm.get('deptEndDate')!.value);
+    const startDate = new Date(this.searchForm.get('startDate')!.value);
+    const endDate = new Date(this.searchForm.get('endDate')!.value);
 
     // Verify dates are correct
     console.log(startDate, endDate);
@@ -314,10 +315,8 @@ export class ReportComponent {
   }
 
   filterStatusData(): void {
-    const startDate = new Date(
-      this.statusSearchForm.get('statusStartDate')!.value
-    );
-    const endDate = new Date(this.statusSearchForm.get('statusEndDate')!.value);
+    const startDate = new Date(this.searchForm.get('startDate')!.value);
+    const endDate = new Date(this.searchForm.get('endDate')!.value);
 
     if (
       isNaN(startDate.getTime()) ||

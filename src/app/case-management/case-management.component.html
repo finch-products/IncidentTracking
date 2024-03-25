@@ -1,26 +1,8 @@
 <div class="p-4">
-  <div class="card">
+  <div class="card" style="padding: 30px;">
     <h2>Add Case Detail</h2>
     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()" class="user-form pad">
       <div class="row">
-        <div class="col-12 col-sm-6 col-lg-6">
-          <mat-form-field appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="desc" required></textarea>
-          </mat-form-field>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Employee No</mat-label>
-            <input matInput formControlName="empNo" required>
-          </mat-form-field>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" required>
-          </mat-form-field>
-        </div>
         <div class="col-12 col-sm-6 col-lg-3">
           <mat-form-field>
             <mat-label>Choose a department</mat-label>
@@ -49,10 +31,11 @@
             <input matInput formControlName="reportedBy" required>
           </mat-form-field>
         </div>
+
         <div class="col-12 col-lg-6">
           <mat-form-field appearance="outline">
-            <mat-label>Case Details</mat-label>
-            <textarea matInput formControlName="details" required></textarea>
+            <mat-label>Subject</mat-label>
+            <input matInput formControlName="subject" required>
           </mat-form-field>
         </div>
         <div class="col-12 col-lg-3">
@@ -71,6 +54,25 @@
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
         </div>
+
+        <div class="col-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="desc" required></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <h3>Employee Involved</h3>
+          <div *ngFor="let involvedEmployee of involvedEmployeeList;let i = index">
+            <div class="flex-r">
+              <app-employee-involved [employeeInvolvedForm]="involvedEmployee"></app-employee-involved> 
+              <button type="button" mat-mini-fab color="primary" style="margin: 10px;" (click)="removeInvolvedEmployee(i)" [disabled]="involvedEmployeeList.length <= 1"><mat-icon>remove</mat-icon></button>
+            </div>
+            
+          </div>
+        <button mat-button (click)="addNewInvolvedEmployeeList()"><mat-icon>add</mat-icon>Add Employee Involved</button>
+      </div>
+        
       </div>
       <div align="end">
         <button mat-raised-button type="submit" [disabled]="caseForm.invalid">Create Case</button>

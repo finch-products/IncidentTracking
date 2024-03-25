@@ -1,22 +1,19 @@
 <div class="dashboard">
   <div class="dashboard-container">
-    <div class="sidebar">
-      <mat-form-field appearance="fill">
-        <mat-label>Search Departments</mat-label>
-        <input matInput type="text" [(ngModel)]="searchText" placeholder="Search" (input)="filterDepartments()">
-      </mat-form-field>
-      <mat-nav-list>
-        <mat-list-item [class.selected-department]="!selectedDepartment" (click)="selectDepartment(null)">
-          <span mat-line>All Departments</span>
-        </mat-list-item>
-        <mat-list-item *ngFor="let department of filteredDepartments"
-          [class.selected-department]="department.name === selectedDepartment" (click)="selectDepartment(department)">
-          <span mat-line>{{ department.name }}</span>
-        </mat-list-item>
-      </mat-nav-list>
-    </div>
     <div class="main-content">
-      <h2>Welcome Back, Bikrant</h2>
+      <div class="flex-r aic jcsb">
+        <h2>Welcome Back, Bikrant</h2>
+        <mat-form-field>
+          <mat-label>Choose a department</mat-label>
+          <mat-select formControlName="department">
+            <mat-option (click)="selectDepartment({name: ''})">All Departments</mat-option>
+            <mat-option *ngFor="let department of filteredDepartments" [value]="department.name" (click)="selectDepartment(department)">
+              {{ department.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
       <div class="summary-cards">
         <mat-card (click)="showTotalCases()" class="total-card">
           <div class="card-title">
@@ -64,5 +61,8 @@
         <mat-paginator [pageSize]="15" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
       </div>
     </div>
+  </div>
+  <div style="min-width: 250px;">
+    sdas
   </div>
 </div>

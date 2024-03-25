@@ -15,6 +15,8 @@ import { MatSort } from '@angular/material/sort';
 export class CaseManagementComponent {
   caseForm: FormGroup;
 
+  involvedEmployeeList: FormGroup[] = []
+
   cases: Case[] = [];
 
   departments: any[] = [
@@ -50,8 +52,7 @@ export class CaseManagementComponent {
     this.caseForm = this.fb.group({
       caseNo: ['', Validators.required],
       desc: ['', Validators.required],
-      empNo: ['', Validators.required],
-      name: ['', Validators.required],
+      subject: ['', Validators.required],
       department: ['', Validators.required],
       city: ['', Validators.required],
       building: ['', Validators.required],
@@ -60,11 +61,25 @@ export class CaseManagementComponent {
       closedDate: [''],
       reportedBy: ['', Validators.required]
     });
+    
+  }
+
+  addNewInvolvedEmployeeList() {
+    this.involvedEmployeeList.push(
+      this.fb.group({
+        empNo: ['', Validators.required],
+        email: ['', Validators.required],
+      })
+    )
+  }
+  removeInvolvedEmployee(index: number){
+    this.involvedEmployeeList.splice(index, 1)
   }
 
   ngOnInit(): void {
     this.cases = cases;
     this.dataSource.data = this.cases;
+    this.addNewInvolvedEmployeeList();
   }
 
   ngAfterViewInit(): void {
