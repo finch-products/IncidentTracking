@@ -118,6 +118,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
     this.filteredCases = filteredCases;
     this.filteredData.data = this.filteredCases;
+    this.calculateCaseCounts();
   }
 
   calculateCaseCounts(): void {

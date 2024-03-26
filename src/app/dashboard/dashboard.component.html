@@ -4,7 +4,7 @@
       <div class="flex-r aic jcsb">
         <h2>Welcome Back, Bikrant</h2>
         <mat-form-field>
-          <mat-label>Choose a department</mat-label>
+          <mat-label>Choose department</mat-label>
           <mat-select formControlName="department">
             <mat-option (click)="selectDepartment({name: ''})">All Departments</mat-option>
             <mat-option *ngFor="let department of filteredDepartments" [value]="department.name" (click)="selectDepartment(department)">
@@ -13,7 +13,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      
+
       <div class="summary-cards">
         <mat-card (click)="showTotalCases()" class="total-card">
           <div class="card-title">
@@ -50,7 +50,7 @@
         </mat-card>
       </div>
       <div class="case-details">
-        <mat-table [dataSource]="filteredCases">
+        <mat-table [dataSource]="filteredData">
           <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
             <mat-header-cell *matHeaderCellDef>{{ columnHeaders[col] }}</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element[col] }}</mat-cell>
@@ -61,8 +61,5 @@
         <mat-paginator [pageSize]="15" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
       </div>
     </div>
-  </div>
-  <div style="min-width: 250px;">
-    sdas
   </div>
 </div>
