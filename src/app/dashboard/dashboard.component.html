@@ -1,4 +1,4 @@
-<div class="dashboard">
+<div class="dashboard flex-r">
   <div class="dashboard-container">
     <div class="main-content">
       <div class="flex-r aic jcsb">
@@ -61,5 +61,8 @@
         <mat-paginator [pageSize]="15" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
       </div>
     </div>
+  </div>
+  <div class="case-detail-rightbar" *ngIf="selectedCase">
+    <app-case-detail-rightbar [caseDetail]="selectedCase"></app-case-detail-rightbar>
   </div>
 </div>

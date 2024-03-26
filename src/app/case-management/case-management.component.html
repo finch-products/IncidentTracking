@@ -1,6 +1,6 @@
 <div class="p-4">
   <div class="card" style="padding: 30px;">
-    <h2>Add Case Detail</h2>
+    <h2>Add CaseDetail Detail</h2>
     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()" class="user-form pad">
       <div class="row">
         <div class="col-12 col-sm-6 col-lg-3">
@@ -75,13 +75,13 @@
         
       </div>
       <div align="end">
-        <button mat-raised-button type="submit" [disabled]="caseForm.invalid">Create Case</button>
+        <button mat-raised-button type="submit" [disabled]="caseForm.invalid">Create CaseDetail</button>
       </div>
     </form>
   </div>
 
   <div class="card mt-3">
-    <h2>Case Details</h2>
+    <h2>CaseDetail Details</h2>
     <div class="col-4 search-feild">
       <mat-form-field>
         <input matInput #searchInput (keyup)="applyFilter(searchInput.value)" placeholder="Search">
@@ -90,7 +90,7 @@
 
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="caseNo">
-        <mat-header-cell *matHeaderCellDef>Unique Case No </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Unique CaseDetail No </mat-header-cell>
         <mat-cell *matCellDef="let c"> {{ c.caseNo }} </mat-cell>
       </ng-container>
 

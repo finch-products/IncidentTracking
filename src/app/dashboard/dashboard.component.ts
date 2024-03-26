@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Case } from '../model/dashboard.model';
+import { CaseDetail } from 'src/dto/case-detail.dto';
+
 import { cases } from '../mock-data';
 import { Router } from '@angular/router';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ObserverDTOService } from 'src/services/observer-dto.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,8 +14,9 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 
 export class DashboardComponent implements OnInit, AfterViewInit {
-  cases: Case[] = [];
-  filteredCases: Case[] = [];
+  cases: CaseDetail[]  = [];
+  filteredCases: CaseDetail[] = [];
+  selectedCase!: CaseDetail | null;
   departments: any[] = [
     { name: 'Department A' },
     { name: 'Department B' },
@@ -35,33 +38,43 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   filteredData = new MatTableDataSource<any>([]);
 
   columnHeaders: { [key: string]: string } = {
-    caseNo: 'Unique Case No',
-    empNo: 'Emp No',
+    caseNo: 'Case No.',
+    subject: 'Subject',
     name: 'Name',
-    department: 'Department',
-    reportedDate: 'Reported Date',
-    closedDate: 'Closed Date',
+    departmentName: 'Department',
+    reportedOn: 'Reported Date',
+    closedOn: 'Closed Date',
     status: 'Status',
   };
 
   displayedColumns: string[] = [
     'caseNo',
-    'empNo',
+    'subject',
     'name',
-    'department',
-    'reportedDate',
-    'closedDate',
+    'departmentName',
+    'reportedOn',
+    'closedOn',
     'status',
   ];
 
   ngOnInit(): void {
-    this.cases = cases;
+    this.cases = cases.map(caseDetail => {
+      caseDetail.name = caseDetail.employeeInvolved.map(obj => obj.name).join('\n');
+      return caseDetail
+    });
+
+    this.observerDTOService.closeSidenav.subscribe(res=>{
+      if(res){
+        this.selectedCase = null;
+      }
+    })
+    // this.selectedCase = cases[0]
     this.filteredDepartments = this.departments;
     this.selectedDepartment = null;
     this.filterCasesByDepartment();
   }
 
-  constructor( private router: Router,  private paginatorIntl: MatPaginatorIntl){
+  constructor( private router: Router,  private paginatorIntl: MatPaginatorIntl, public observerDTOService: ObserverDTOService){
     this.paginatorIntl.itemsPerPageLabel = 'Items per page:';
     this.paginatorIntl.nextPageLabel = 'Next page';
     this.paginatorIntl.previousPageLabel = 'Previous page';
@@ -81,7 +94,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   filterCasesByDepartment(): void {
     if (this.selectedDepartment && this.selectedDepartment !== 'all') {
       this.filteredCases = this.cases.filter(
-        (c) => c.department === this.selectedDepartment
+        (c) => c.departmentName === this.selectedDepartment
       );
     } else {
       this.filteredCases = [...this.cases];
@@ -110,7 +123,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   filterCases(status?: 'open' | 'closed'): void {
     let filteredCases = this.cases.filter(
-      (c) => c.department === this.selectedDepartment
+      (c) => c.departmentName === this.selectedDepartment
     );
 
     if (status) {
@@ -132,7 +145,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   navigateToCaseDetail(row: any): void {
-    this.router.navigate(['/case-details']);
+    // this.router.navigate(['/case-details']);
+    this.observerDTOService.closeSidenav.next(false);
+    this.selectedCase = row;
   }
 
   ngAfterViewInit() {

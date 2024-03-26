@@ -60,7 +60,7 @@ export class SidenavComponent {
     {
       iconClass: 'material-icons',
       iconText: 'notifications',
-      text: 'Case Details',
+      text: 'CaseDetail Details',
       url: '/case-details'
     }
   ]

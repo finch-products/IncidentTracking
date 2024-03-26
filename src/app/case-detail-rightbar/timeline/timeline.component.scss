@@ -1,0 +1,31 @@
+.timeline-box{
+    border-left: 1px solid black;
+    min-height: 50px;
+    position: relative;
+    padding-left: 10px;
+    .timeline-circle{
+        font-size: 15px;
+        position: absolute;
+        top: 12px;
+        left: -7.5px;
+        color: green;
+    }
+    .value {
+        padding: 10px;
+        background-color: #0173BA10;
+        .updated-by{
+            margin-top: 5px;
+            color: #888;
+        }
+    }
+
+    &:last-child{
+        min-height: 15px;
+        height: 15px !important;
+    }
+
+}
+// .timeline-box-end{
+//     @extend .timeline-box;
+    
+// }

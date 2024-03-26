@@ -10,7 +10,9 @@
     font-weight: bold;
     margin-bottom: $topnavHeight;
 }
-
+.topnav-full {
+    width: 100%;
+}
 @media screen and (max-width: $responsideWidth) {
     .topnav{
         width: 100vw;

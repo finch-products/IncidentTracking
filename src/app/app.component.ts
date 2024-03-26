@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { ObserverDTOService } from 'src/services/observer-dto.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
   title: string = '';
+  showSidenav: boolean = true;
 
   showHeader: boolean = true;
   // title: string = '';
@@ -25,7 +27,8 @@ export class AppComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    public observerDTOService: ObserverDTOService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,9 @@ export class AppComponent {
         console.log(this.showHeader);
       }
     });
+    this.observerDTOService.closeSidenav.subscribe(res=>{
+      this.showSidenav = res;
+    })
   }
 
   logout() {

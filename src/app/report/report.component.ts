@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { ChartData, ChartConfiguration, ChartOptions } from 'chart.js';
-import { Case } from '../model/dashboard.model';
+import { CaseDetail } from 'src/dto/case-detail.dto';
+
 import { cases } from '../mock-data';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -11,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./report.component.scss'],
 })
 export class ReportComponent {
-  cases: Case[] = [];
+  cases: CaseDetail[] = [];
 
   employees: { empNo: string; name: string }[] = [];
   searchForm: FormGroup;
@@ -133,7 +134,7 @@ export class ReportComponent {
     }
 
     const filteredCases = this.cases.filter((c) => {
-      const reportedDate = new Date(c.reportedDate);
+      const reportedDate = new Date(c.reportedOn);
       return reportedDate >= startDate && reportedDate <= endDate;
     });
 
@@ -245,7 +246,7 @@ export class ReportComponent {
 
   private filterCasesByDate(startDate: Date, endDate: Date): any[] {
     return this.cases.filter((c) => {
-      const reportedDate = new Date(c.reportedDate);
+      const reportedDate = new Date(c.reportedOn);
       return reportedDate >= startDate && reportedDate <= endDate;
     });
   }
@@ -317,7 +318,7 @@ export class ReportComponent {
     }
 
     const filteredCases = this.cases.filter((c) => {
-      const reportedDate = new Date(c.reportedDate);
+      const reportedDate = new Date(c.reportedOn);
       return reportedDate >= startDate && reportedDate <= endDate;
     });
 
@@ -371,7 +372,7 @@ export class ReportComponent {
 
   getDepartments(): string[] {
     return this.cases
-      .map((caseItem) => caseItem.department)
+      .map((caseItem) => caseItem.departmentName)
       .filter((value, index, self) => self.indexOf(value) === index);
   }
 
@@ -379,13 +380,13 @@ export class ReportComponent {
     const averageTATs: number[] = [];
     departments.forEach((department) => {
       const departmentCases = this.cases.filter(
-        (caseItem) => caseItem.department === department
+        (caseItem) => caseItem.departmentName === department
       );
       const totalTAT = departmentCases.reduce((acc, curr) => {
-        const reportedDate = new Date(curr.reportedDate).getTime();
+        const reportedDate = new Date(curr.reportedOn).getTime();
         const closedDate =
           curr.status === 'closed'
-            ? new Date(curr.closedDate).getTime()
+            ? new Date(curr.closedOn || new Date()).getTime()
             : new Date().getTime();
         return (
           acc + Math.abs(closedDate - reportedDate) / (1000 * 60 * 60 * 24)
@@ -398,7 +399,16 @@ export class ReportComponent {
   }
 
   prepareFraudCasesData(): void {
-    const caseCountsByEmployee = this.cases.reduce(
+    const flattenedData: any[] = [];
+    console.log(this.cases[0])
+
+    // Iterate through each employee object in the 'employee' array
+    this.cases.forEach(caseDetail => {
+      caseDetail.employeeInvolved.forEach(employee => {
+        flattenedData.push({...caseDetail, empNo: employee.code})
+      })
+    });
+    const caseCountsByEmployee = flattenedData.reduce(
       (acc: { [key: string]: number }, { empNo }) => {
         acc[empNo] = (acc[empNo] || 0) + 1;
         return acc;

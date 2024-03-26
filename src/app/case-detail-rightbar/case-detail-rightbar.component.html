@@ -1,0 +1,113 @@
+<div class="card" *ngIf="caseDetail">
+    <div class="actions">
+        <div align="end">
+            <button mat-stroked-button color="primary">
+                <mat-icon>edit</mat-icon>
+                Edit Case
+            </button>
+            <button mat-flat-button color="primary" style="margin-left: 10px;">
+                <mat-icon>download</mat-icon>
+                Download PDF
+            </button>
+            
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            Unique Case No.
+        </div>
+        <div class="value">
+            {{caseDetail.caseNo}} <span [class]="caseDetail.status">( {{ caseDetail.status | uppercase}} )</span> 
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            Subject
+        </div>
+        <div class="value">
+            {{caseDetail.subject}}
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            Description
+        </div>
+        <div class="value">
+            {{caseDetail.description}}
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            Timeline
+        </div>
+        <div class="value timeline">
+            <app-timeline [statusHistory]="caseDetail.statusHistory"></app-timeline>
+        </div>
+    </div>
+    
+
+    <div class="section">
+        <div class="title">
+            Reported By
+        </div>
+        <div class="value">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>EMP No.</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>{{ caseDetail.reporter.code }}</td>
+                    <td>{{ caseDetail.reporter.name }}</td>
+                    <td>{{ caseDetail.reporter.email }}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            Employee Involved
+        </div>
+        <div class="value">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>EMP No.</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let employee of caseDetail.employeeInvolved">
+                    <td>{{ employee.code }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.email }}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="title">
+            Department
+        </div>
+        <div class="value">
+            {{caseDetail.departmentName}}
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            Branch
+        </div>
+        <div class="value">
+            {{caseDetail.branchName}}
+        </div>
+    </div>
+
+</div>

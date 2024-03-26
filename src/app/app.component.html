@@ -1,11 +1,11 @@
 <div *ngIf="showHeader" class="main-container">
   <div class="flex-r">
-    <div class="main-sidenav">
+    <div class="main-sidenav" [class.main-sidenav-w0]="!showSidenav">
       <div class="sidenav">
         <app-sidenav></app-sidenav>
       </div>
     </div>
-    <div class="main-content">
+    <div class="main-content" >
       <app-topnav></app-topnav>
       <router-outlet></router-outlet>
     </div>
@@ -58,7 +58,7 @@
   <router-outlet></router-outlet>
 </div>
 <div>
-  <button mat-fab class="create-case-button" routerLink="/cases" title="Create Case">
+  <button mat-fab class="create-case-button" routerLink="/cases" title="Create CaseDetail">
     <mat-icon>add</mat-icon>
   </button>
 </div>

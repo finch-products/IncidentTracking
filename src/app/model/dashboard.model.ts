@@ -1,3 +1,4 @@
+
 export interface Document {
   id: number;
   title: string;
@@ -31,16 +32,4 @@ export interface Notice {
   url: string;
 }
 
-export interface Case {
-  caseNo: string;
-  desc: string;
-  empNo: string;
-  name: string;
-  department: string;
-  city: string;
-  building: string;
-  details: string;
-  reportedDate: string;
-  closedDate: string;
-  status: 'open' | 'closed';
-}
+

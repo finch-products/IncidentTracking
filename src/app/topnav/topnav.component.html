@@ -1,8 +1,8 @@
-<div class="topnav">
+<div class="topnav" [class.topnav-full]="!isOpen">
     <div class="flex-r aic jcsb">
         <div class="icon">
             <div class="flex-r aic">
-                <button mat-icon-button><i class="material-icons">menu</i></button>
+                <button mat-icon-button (click)="toggleSidenav()"><i class="material-icons">menu</i></button>
                 {{menuTitle}}
             </div>
             

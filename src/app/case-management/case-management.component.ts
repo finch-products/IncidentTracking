@@ -2,7 +2,8 @@ import { cases } from './../mock-data';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Case } from '../model/dashboard.model';
+import { CaseDetail } from 'src/dto/case-detail.dto';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -17,7 +18,7 @@ export class CaseManagementComponent {
 
   involvedEmployeeList: FormGroup[] = []
 
-  cases: Case[] = [];
+  cases: CaseDetail[] = [];
 
   departments: any[] = [
     { name: 'Department A' },

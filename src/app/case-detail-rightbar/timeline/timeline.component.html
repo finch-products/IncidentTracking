@@ -1,0 +1,17 @@
+<div class="pad">
+    <div class="timeline-box" *ngFor="let history of reversedStatusHistory">
+        <mat-icon class="timeline-circle">circle</mat-icon>
+        <div class="pad">
+            <div class="title">
+                {{ history.statusDesc }}
+            </div>
+            <div class="value" *ngIf="history.comment">
+                {{ history.comment }}
+                <div class="updated-by">
+                    <i>- {{ history.updatedBy.name }} ( {{history.updateOn | date}} )</i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

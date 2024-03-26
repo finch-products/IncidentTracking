@@ -1,3 +1,5 @@
+@import '/src/app/variable.scss';
+
 .card {
   padding: 0;
   border-radius: 8px;
@@ -43,9 +45,15 @@ span,
 //incident tracking
 /* Dashboard Container */
 .dashboard-container {
-  display: flex;
-  height: 100vh;
+  // display: flex;
+  // height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // width: calc(100vw - 300px);
+  flex: 1;
+}
+.case-detail-rightbar{
+  width: $caseDetailRightbarWidth;
+  // border:1px solid black;
 }
 
 /* Sidebar styles */
@@ -141,7 +149,7 @@ span,
 }
 
 
-/* Case Details Table */
+/* CaseDetail Details Table */
 .case-details {
   background-color: #ffffff;
   border-radius: 8px;

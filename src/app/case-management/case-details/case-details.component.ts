@@ -29,7 +29,7 @@ export class CaseDetailsComponent {
 
   ngOnInit(): void {
     this.caseDetailsForm = this.fb.group({
-      desc: ['Detailed Description of the Case', Validators.required],
+      desc: ['Detailed Description of the CaseDetail', Validators.required],
       empNo: ['743210', Validators.required],
       name: ['Sharath V G', Validators.required],
       department: ['Department A', Validators.required],

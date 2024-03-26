@@ -3,11 +3,23 @@
 .main-content{
   max-height: calc(100vh - $topnavHeight); 
   overflow-x: scroll;
-  width: calc(100vw - $sidenavWidth);
+  // width: calc(100vw - $sidenavWidth);
   margin-top: $topnavHeight;
+  flex: 1;
 }
 .main-sidenav{
   width: $sidenavWidth;
+}
+
+@mixin main-sidenav-w0 {
+  z-index: 100;
+  position: absolute;
+  width: 0px;
+  overflow: hidden;
+}
+
+.main-sidenav-w0 {
+  @include main-sidenav-w0;
 }
 
 @media screen and (max-width: $responsideWidth) {
@@ -15,9 +27,7 @@
     width: 100vw;
   }
   .main-sidenav{
-    z-index: 100;
-    position: absolute;
-    width: 0px;
+    @include main-sidenav-w0;
   }
   .sidenav{
     position: relative;

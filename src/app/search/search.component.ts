@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Case } from '../model/dashboard.model';
+import { CaseDetail } from 'src/dto/case-detail.dto';
+
 import { cases } from '../mock-data';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +14,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit, AfterViewInit {
-  cases: Case[] = [];
+  cases: CaseDetail[] = [];
   searchForm: FormGroup;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -24,7 +25,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   filteredData = new MatTableDataSource<any>([]);
    columnHeaders: { [key: string]: string } = {
-    caseNo: 'Unique Case No',
+    caseNo: 'Unique CaseDetail No',
     name: 'Name',
     department: 'Department',
     building: 'Building',
@@ -85,7 +86,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     const formValue = this.searchForm.value;
 
     this.filteredData.data = this.cases.filter((record) => {
-      const reportedDate = new Date(record.reportedDate);
+      const reportedDate = new Date(record.reportedOn);
       const quickDateFilter = formValue.quickDate
         ? new Date(
             Date.now() - parseInt(formValue.quickDate) * 24 * 60 * 60 * 1000
@@ -99,16 +100,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
       return (
         (formValue.caseNo ? record.caseNo.includes(formValue.caseNo) : true) &&
         (formValue.investigator
-          ? record.name.includes(formValue.investigator)
+          ? record.reporter.name.includes(formValue.investigator)
           : true) &&
-        (formValue.location
-          ? record.building.includes(formValue.location)
-          : true) &&
-        (formValue.status ? record.status === formValue.status : true) &&
-        (formValue.department
-          ? record.department === formValue.department
-          : true) &&
-        (formValue.city ? record.city === formValue.city : true) &&
+        // (formValue.location
+        //   ? record.building.includes(formValue.location)
+        //   : true) &&
+        // (formValue.status ? record.status === formValue.status : true) &&
+        // (formValue.department
+        //   ? record.department === formValue.department
+        //   : true) &&
+        // (formValue.city ? record.city === formValue.city : true) &&
         (!quickDateFilter || reportedDate >= quickDateFilter) &&
         (!dateFromFilter || reportedDate >= dateFromFilter) &&
         (!dateToFilter || reportedDate <= dateToFilter)

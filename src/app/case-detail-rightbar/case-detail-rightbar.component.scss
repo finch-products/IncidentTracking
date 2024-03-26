@@ -1,0 +1,28 @@
+.section{
+    padding: 10px;
+    .title{
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .open{
+        color: red;
+        font-weight: bold;
+    }
+    .value{
+        overflow-x: scroll;
+        &.timeline{
+            overflow: visible;
+        }
+    }
+    .timeline{
+        min-height: 50px;
+    }
+}
+.card{
+    position: relative;
+    .actions{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+}
