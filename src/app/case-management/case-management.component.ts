@@ -41,7 +41,7 @@ export class CaseManagementComponent {
     'department',
     'city',
     'building',
-    'details',
+    // 'details',
     'reportedDate',
     'closedDate',
     'reportedBy'

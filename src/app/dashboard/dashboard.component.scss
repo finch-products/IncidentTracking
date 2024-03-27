@@ -51,6 +51,9 @@ span,
   // width: calc(100vw - 300px);
   flex: 1;
 }
+.dashboard-container-with-rightbar {
+  width: calc(100vw - $caseDetailRightbarWidth);
+}
 .case-detail-rightbar{
   width: $caseDetailRightbarWidth;
   // border:1px solid black;

@@ -1,6 +1,6 @@
 <div class="p-4">
   <div class="card" style="padding: 30px;">
-    <h2>Add CaseDetail Detail</h2>
+    <h2>Create New Case</h2>
     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()" class="user-form pad">
       <div class="row">
         <div class="col-12 col-sm-6 col-lg-3">
@@ -80,7 +80,7 @@
     </form>
   </div>
 
-  <div class="card mt-3">
+  <!-- <div class="card mt-3">
     <h2>CaseDetail Details</h2>
     <div class="col-4 search-feild">
       <mat-form-field>
@@ -95,8 +95,8 @@
       </ng-container>
 
       <ng-container matColumnDef="desc">
-        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-        <mat-cell *matCellDef="let c"> {{ c.desc }} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+        <mat-cell *matCellDef="let c"> {{ c.subject }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="empNo">
@@ -125,23 +125,23 @@
       </ng-container>
 
       <ng-container matColumnDef="details">
-        <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
-        <mat-cell *matCellDef="let c"> {{ c.details }} </mat-cell>
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let c"> {{ c.description }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="reportedBy">
         <mat-header-cell *matHeaderCellDef> Reported By </mat-header-cell>
-        <mat-cell *matCellDef="let c"> {{ c.reportedBy }} </mat-cell>
+        <mat-cell *matCellDef="let c"> {{ c.reporter.name }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="reportedDate">
         <mat-header-cell *matHeaderCellDef> Reported On</mat-header-cell>
-        <mat-cell *matCellDef="let c"> {{ c.reportedDate }} </mat-cell>
+        <mat-cell *matCellDef="let c"> {{ c.reportedOn }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="closedDate">
         <mat-header-cell *matHeaderCellDef> Closed On </mat-header-cell>
-        <mat-cell *matCellDef="let c"> {{ c.closedDate }} </mat-cell>
+        <mat-cell *matCellDef="let c"> {{ c.closedOn }} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -149,5 +149,5 @@
     </mat-table>
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]"></mat-paginator>
 
-  </div>
+  </div> -->
 </div>

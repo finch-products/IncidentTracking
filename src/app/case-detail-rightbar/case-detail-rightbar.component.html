@@ -61,7 +61,7 @@
                 </thead>
                 <tbody>
                   <tr >
-                    <td>{{ caseDetail.reporter.code }}</td>
+                    <td>{{ caseDetail.reporter.code | uppercase }}</td>
                     <td>{{ caseDetail.reporter.name }}</td>
                     <td>{{ caseDetail.reporter.email }}</td>
                   </tr>
@@ -84,7 +84,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let employee of caseDetail.employeeInvolved">
-                    <td>{{ employee.code }}</td>
+                    <td>{{ employee.code | uppercase }}</td>
                     <td>{{ employee.name }}</td>
                     <td>{{ employee.email }}</td>
                   </tr>

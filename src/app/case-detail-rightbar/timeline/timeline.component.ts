@@ -8,12 +8,13 @@ import { CaseStatus } from 'src/dto/case-detail.dto';
 })
 export class TimelineComponent implements OnInit, OnChanges{
   @Input() statusHistory: CaseStatus[] | undefined = [];
-  reversedStatusHistory: CaseStatus[] | undefined;
+  reversedStatusHistory: CaseStatus[] | undefined = [];
 
   ngOnInit() {
 
   }
   ngOnChanges() {
-    this.reversedStatusHistory = this.statusHistory?.reverse() || [];
+    this.reversedStatusHistory = JSON.parse(JSON.stringify(this.statusHistory || []));
+    this.reversedStatusHistory?.reverse();
   }
 }
