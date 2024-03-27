@@ -27,5 +27,4 @@ export interface CaseDetail {
     status: string;
     name?: string;
     statusHistory?: CaseStatus[];
-
 }

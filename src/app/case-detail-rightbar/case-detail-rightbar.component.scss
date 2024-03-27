@@ -10,9 +10,13 @@
         color: red;
         font-weight: bold;
     }
+    .closed{
+        color: green;
+        font-weight: bold;
+    }
     .value{
         overflow-x: scroll;
-        &.timeline{
+        &.timeline, &.form{
             overflow: visible;
         }
     }

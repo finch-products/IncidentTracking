@@ -1,4 +1,4 @@
-import { cases } from './../mock-data';
+import { cases, mockBranches, employees } from './../mock-data';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +7,8 @@ import { CaseDetail } from 'src/dto/case-detail.dto';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Branch } from '../model/dashboard.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-case-management',
@@ -15,8 +17,10 @@ import { MatSort } from '@angular/material/sort';
 })
 export class CaseManagementComponent {
   caseForm: FormGroup;
+  branches!: Branch[];
 
   involvedEmployeeList: FormGroup[] = []
+  reportedBy!: FormGroup;
 
   cases: CaseDetail[] = [];
 
@@ -42,36 +46,45 @@ export class CaseManagementComponent {
     'city',
     'building',
     // 'details',
-    'reportedDate',
-    'closedDate',
+    'reportedOn',
+    'closedOn',
     'reportedBy'
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) {
     this.caseForm = this.fb.group({
       caseNo: ['', Validators.required],
-      desc: ['', Validators.required],
+      description: ['', Validators.required],
       subject: ['', Validators.required],
-      department: ['', Validators.required],
-      city: ['', Validators.required],
-      building: ['', Validators.required],
-      details: ['', Validators.required],
-      reportedDate: ['', Validators.required],
-      closedDate: [''],
-      reportedBy: ['', Validators.required]
+      branchName: ['', Validators.required],
+      departmentName: ['', Validators.required],
+      reportedOn: ['', Validators.required],
+      closedOn: [''],
     });
     
   }
 
+
+// export interface CaseDetail {
+//   reporter: Employee;
+//   employeeInvolved: Employee[];
+//   statusHistory?: CaseStatus[];
+// }
+
+
   addNewInvolvedEmployeeList() {
     this.involvedEmployeeList.push(
-      this.fb.group({
-        empNo: ['', Validators.required],
-        email: ['', Validators.required],
-      })
+      this.getEmployeeForm()
     )
+  }
+  getEmployeeForm() {
+    return this.fb.group({
+      code: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', Validators.required],
+    })
   }
   removeInvolvedEmployee(index: number){
     this.involvedEmployeeList.splice(index, 1)
@@ -79,8 +92,10 @@ export class CaseManagementComponent {
 
   ngOnInit(): void {
     this.cases = cases;
+    this.branches = mockBranches;
     this.dataSource.data = this.cases;
     this.addNewInvolvedEmployeeList();
+    this.reportedBy = this.getEmployeeForm();
   }
 
   ngAfterViewInit(): void {
@@ -107,23 +122,51 @@ export class CaseManagementComponent {
     return `${year}-${month}-${day}`;
   }
 
-  onSubmit(): void {
-    if (this.caseForm.valid) {
-      const formValue = { ...this.caseForm.value };
+  isEmployeeInvolvedValid(): boolean {
+    for(let employee of this.involvedEmployeeList){
+      if(!employee.valid)return false;
+    }
+    return true;
+  }
 
-      if (formValue.reportedDate) {
-        formValue.reportedDate = this.formatDate(formValue.reportedDate);
+  onSubmit(): void {
+    if (this.caseForm.valid && this.isEmployeeInvolvedValid() && this.reportedBy.valid) {
+      const formValue = { ...this.caseForm.value };
+      let employeeInvolved = this.involvedEmployeeList.map(emp => emp.value)
+      formValue.employeeInvolved = employeeInvolved;
+      formValue.reporter = this.reportedBy.value;
+      formValue.status = 'open';
+      formValue.statusHistory = [{
+        status: 'created',
+        statusDesc: 'Case Reported On ' + this.formatDate(formValue.reportedOn),
+        updateOn: new Date(formValue.reportedOn),
+        updatedBy: employees[0],
+        comment: '',
+        attachment: [
+          {
+            filename: 'FR0001.pdf',
+            fileurl: 'FR0001.pdf'
+          }
+        ]
+      }]
+
+
+      if (formValue.reportedOn) {
+        formValue.reportedOn = this.formatDate(formValue.reportedOn);
       }
-      if (formValue.closedDate) {
-        formValue.closedDate = this.formatDate(formValue.closedDate);
+      if (formValue.closedOn) {
+        formValue.closedOn = this.formatDate(formValue.closedOn);
       }
       console.log('Form Submitted:', formValue);
       this.openSnackBar('Form Submitted!', 'Close');
       this.cases.unshift(formValue);
       this.caseForm.reset();
+      this.router.navigate(['/dashboard'])
       if (this.dataSource.paginator) {
         this.dataSource.paginator.firstPage();
       }
+    }else{
+      this.openSnackBar('Please fill all required fields!', 'Close');
     }
   }
 }

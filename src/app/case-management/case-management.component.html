@@ -4,33 +4,40 @@
     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()" class="user-form pad">
       <div class="row">
         <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Case No.</mat-label>
+            <input matInput formControlName="caseNo" required>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
           <mat-form-field>
             <mat-label>Choose a department</mat-label>
-            <mat-select formControlName="department">
+            <mat-select formControlName="departmentName">
               <mat-option *ngFor="let department of departments" [value]="department.name">
                 {{ department.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-12 col-lg-3">
-          <mat-form-field appearance="outline">
-            <mat-label>City</mat-label>
-            <input matInput formControlName="city" required>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <mat-form-field>
+            <mat-label>Branch</mat-label>
+            <mat-select formControlName="branchName">
+              <mat-option *ngFor="let branch of branches" [value]="branch.name + ', ' + branch.city">
+                {{ branch.name }}, {{branch.city}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="col-12 col-lg-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Location Building</mat-label>
-            <input matInput formControlName="building" required>
+          <mat-form-field appearance="fill">
+            <mat-label>Reported Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="reportedOn">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div class="col-12 col-lg-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Reported By</mat-label>
-            <input matInput formControlName="reportedBy" required>
-          </mat-form-field>
-        </div>
+
 
         <div class="col-12 col-lg-6">
           <mat-form-field appearance="outline">
@@ -38,28 +45,27 @@
             <input matInput formControlName="subject" required>
           </mat-form-field>
         </div>
-        <div class="col-12 col-lg-3">
-          <mat-form-field appearance="fill">
-            <mat-label>Reported Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="reportedDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="col-12 col-lg-3">
+        
+        <!-- <div class="col-12 col-lg-3">
           <mat-form-field appearance="fill">
             <mat-label>Closed Date</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="closedDate">
+            <input matInput [matDatepicker]="picker1" formControlName="closedOn">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <div class="col-12">
           <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
-            <textarea matInput formControlName="desc" required></textarea>
+            <textarea matInput formControlName="description" required></textarea>
           </mat-form-field>
+        </div>
+        <div class="col-12">
+          <h3>Reported By</h3>
+          <app-employee-involved [employeeInvolvedForm]="reportedBy"></app-employee-involved> 
+
+
         </div>
         <div class="col-12">
           <h3>Employee Involved</h3>
@@ -68,14 +74,13 @@
               <app-employee-involved [employeeInvolvedForm]="involvedEmployee"></app-employee-involved> 
               <button type="button" mat-mini-fab color="primary" style="margin: 10px;" (click)="removeInvolvedEmployee(i)" [disabled]="involvedEmployeeList.length <= 1"><mat-icon>remove</mat-icon></button>
             </div>
-            
           </div>
-        <button mat-button (click)="addNewInvolvedEmployeeList()"><mat-icon>add</mat-icon>Add Employee Involved</button>
+        <button mat-button type="button" (click)="addNewInvolvedEmployeeList()"><mat-icon>add</mat-icon>Add Employee Involved</button>
       </div>
         
       </div>
       <div align="end">
-        <button mat-raised-button type="submit" [disabled]="caseForm.invalid">Create CaseDetail</button>
+        <button mat-raised-button type="submit" [disabled]="caseForm.invalid">Create Case</button>
       </div>
     </form>
   </div>
@@ -134,12 +139,12 @@
         <mat-cell *matCellDef="let c"> {{ c.reporter.name }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="reportedDate">
+      <ng-container matColumnDef="reportedOn">
         <mat-header-cell *matHeaderCellDef> Reported On</mat-header-cell>
         <mat-cell *matCellDef="let c"> {{ c.reportedOn }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="closedDate">
+      <ng-container matColumnDef="closedOn">
         <mat-header-cell *matHeaderCellDef> Closed On </mat-header-cell>
         <mat-cell *matCellDef="let c"> {{ c.closedOn }} </mat-cell>
       </ng-container>

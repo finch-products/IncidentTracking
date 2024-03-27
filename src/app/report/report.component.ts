@@ -158,8 +158,8 @@ export class ReportComponent {
     }
 
     const filteredCases = this.cases.filter((c) => {
-      const reportedDate = new Date(c.reportedOn);
-      return reportedDate >= startDate && reportedDate <= endDate;
+      const reportedOn = new Date(c.reportedOn);
+      return reportedOn >= startDate && reportedOn <= endDate;
     });
 
     this.initCasesOverTimeChart(filteredCases, startDate, endDate);
@@ -176,9 +176,9 @@ export class ReportComponent {
     const monthlyCounts = Array(12).fill(0);
 
     cases.forEach((c) => {
-      const reportedDate = new Date(c.reportedOn);
-      if (reportedDate >= startDate && reportedDate <= endDate) {
-        const monthIndex = reportedDate.getMonth();
+      const reportedOn = new Date(c.reportedOn);
+      if (reportedOn >= startDate && reportedOn <= endDate) {
+        const monthIndex = reportedOn.getMonth();
         monthlyCounts[monthIndex]++;
       }
     });
@@ -270,8 +270,8 @@ export class ReportComponent {
 
   private filterCasesByDate(startDate: Date, endDate: Date): any[] {
     return this.cases.filter((c) => {
-      const reportedDate = new Date(c.reportedOn);
-      return reportedDate >= startDate && reportedDate <= endDate;
+      const reportedOn = new Date(c.reportedOn);
+      return reportedOn >= startDate && reportedOn <= endDate;
     });
   }
 
@@ -342,8 +342,8 @@ export class ReportComponent {
     }
 
     const filteredCases = this.cases.filter((c) => {
-      const reportedDate = new Date(c.reportedOn);
-      return reportedDate >= startDate && reportedDate <= endDate;
+      const reportedOn = new Date(c.reportedOn);
+      return reportedOn >= startDate && reportedOn <= endDate;
     });
 
     this.initCasesByStatusChart(filteredCases);
@@ -407,13 +407,13 @@ export class ReportComponent {
         (caseItem) => caseItem.departmentName === department
       );
       const totalTAT = departmentCases.reduce((acc, curr) => {
-        const reportedDate = new Date(curr.reportedOn).getTime();
-        const closedDate =
+        const reportedOn = new Date(curr.reportedOn).getTime();
+        const closedOn =
           curr.status === 'closed'
             ? new Date(curr.closedOn || new Date()).getTime()
             : new Date().getTime();
         return (
-          acc + Math.abs(closedDate - reportedDate) / (1000 * 60 * 60 * 24)
+          acc + Math.abs(closedOn - reportedOn) / (1000 * 60 * 60 * 24)
         );
       }, 0);
       const averageTAT = totalTAT / departmentCases.length;

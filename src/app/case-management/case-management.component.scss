@@ -1,4 +1,11 @@
+@import '/src/app/variable.scss';
+
 .search-feild{
   width: 100%;
   text-align: right;
+}
+
+h3{
+  color: $primaryColor;
+  font-weight: bold;
 }

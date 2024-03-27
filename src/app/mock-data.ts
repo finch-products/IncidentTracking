@@ -53,9 +53,9 @@ export const noticeCount = [
 ];
 
 export const cases: CaseDetail[] = [
-  // { caseNo: 'ab789', desc: 'Desc 1', empNo: '1235', name: 'Swathi', department: 'Department A', city: 'Bengaluru', building: 'Whitefeild', details: 'Details 1', reportedDate: '2024-01-05', closedDate: '2024-03-05', status: 'closed' },
-  // { caseNo: 'cd456', desc: 'Desc 2', empNo: '1236', name: 'John', department: 'Department B', city: 'New York', building: 'Empire', details: 'Details 2', reportedDate: '2024-02-15', closedDate: '2024-03-10', status: 'closed' },
-  // { caseNo: 'ef123', desc: 'Desc 3', empNo: '1237', name: 'Doe', department: 'Department C', city: 'London', building: 'Canary Wharf', details: 'Details 3', reportedDate: '2024-01-20', closedDate: '', status: 'open' },
+  // { caseNo: 'ab789', desc: 'Desc 1', empNo: '1235', name: 'Swathi', department: 'Department A', city: 'Bengaluru', building: 'Whitefeild', details: 'Details 1', reportedOn: '2024-01-05', closedOn: '2024-03-05', status: 'closed' },
+  // { caseNo: 'cd456', desc: 'Desc 2', empNo: '1236', name: 'John', department: 'Department B', city: 'New York', building: 'Empire', details: 'Details 2', reportedOn: '2024-02-15', closedOn: '2024-03-10', status: 'closed' },
+  // { caseNo: 'ef123', desc: 'Desc 3', empNo: '1237', name: 'Doe', department: 'Department C', city: 'London', building: 'Canary Wharf', details: 'Details 3', reportedOn: '2024-01-20', closedOn: '', status: 'open' },
   // Add more entries here...
 ];
 
@@ -84,10 +84,10 @@ const departments: any[] = [
   { name: 'Department G' },
 ];
 
-const employees: Employee[] = []
+export const employees: Employee[] = []
 
 // departmentName: string;
-//     centerName: string;
+//     branchName: string;
 //     reporter: Employee;
 //     reportedOn: Date;
 //     closedOn?: Date;

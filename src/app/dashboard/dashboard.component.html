@@ -5,7 +5,7 @@
         <h2>Welcome Back, Bikrant</h2>
         <mat-form-field>
           <mat-label>Choose department</mat-label>
-          <mat-select formControlName="department">
+          <mat-select>
             <mat-option (click)="selectDepartment({name: ''})">All Departments</mat-option>
             <mat-option *ngFor="let department of filteredDepartments" [value]="department.name" (click)="selectDepartment(department)">
               {{ department.name }}
