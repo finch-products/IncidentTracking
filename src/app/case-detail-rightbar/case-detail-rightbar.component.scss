@@ -1,8 +1,10 @@
+@import '/src/app/variable.scss';
 .section{
     padding: 10px;
     .title{
         font-weight: bold;
         margin-bottom: 5px;
+        color: $primaryColor;
     }
     .open{
         color: red;
