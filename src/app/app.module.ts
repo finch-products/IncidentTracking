@@ -45,7 +45,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { TopnavComponent } from './topnav/topnav.component';
-import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 import { EmployeeInvolvedComponent } from './case-management/employee-involved/employee-involved.component';
 import { CaseDetailRightbarComponent } from './case-detail-rightbar/case-detail-rightbar.component';
 import { TimelineComponent } from './case-detail-rightbar/timeline/timeline.component';
@@ -66,7 +65,6 @@ import { TimelineComponent } from './case-detail-rightbar/timeline/timeline.comp
     SafeHtmlPipe,
     SidenavComponent,
     TopnavComponent,
-    CaseDetailsComponent,
     EmployeeInvolvedComponent,
     CaseDetailRightbarComponent,
     TimelineComponent

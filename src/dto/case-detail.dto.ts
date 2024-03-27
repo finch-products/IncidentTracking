@@ -25,8 +25,6 @@ export interface CaseDetail {
     description: string;
     employeeInvolved: Employee[];
     status: string;
-
-    // runtime variables
     name?: string;
     statusHistory?: CaseStatus[];
 

@@ -27,20 +27,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
    columnHeaders: { [key: string]: string } = {
     caseNo: 'Unique CaseDetail No',
     name: 'Name',
-    department: 'Department',
-    building: 'Building',
-    reportedDate: 'Reported Date',
-    closedDate: 'Closed Date',
+    description: 'Description',
+    reportedOn: 'Reported On',
+    closedOn: 'Closed On',
     status: 'Status',
   };
 
   displayedColumns: string[] = [
     'caseNo',
     'name',
-    'department',
-    'building',
-    'reportedDate',
-    'closedDate',
+    'description',
+    'reportedOn',
+    'closedOn',
     'status',
   ];
 
@@ -79,6 +77,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.cases = cases;
+    console.log('mock cases:::::' + JSON.stringify(this.cases));
     this.onSearch();
   }
 
@@ -86,7 +85,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     const formValue = this.searchForm.value;
 
     this.filteredData.data = this.cases.filter((record) => {
-      const reportedDate = new Date(record.reportedOn);
+      const reportedOn = new Date(record.reportedOn);
       const quickDateFilter = formValue.quickDate
         ? new Date(
             Date.now() - parseInt(formValue.quickDate) * 24 * 60 * 60 * 1000
@@ -105,14 +104,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
         // (formValue.location
         //   ? record.building.includes(formValue.location)
         //   : true) &&
-        // (formValue.status ? record.status === formValue.status : true) &&
-        // (formValue.department
-        //   ? record.department === formValue.department
-        //   : true) &&
+        (formValue.status ? record.status === formValue.status : true) &&
+        (formValue.department
+          ? record.departmentName === formValue.department
+          : true) &&
         // (formValue.city ? record.city === formValue.city : true) &&
-        (!quickDateFilter || reportedDate >= quickDateFilter) &&
-        (!dateFromFilter || reportedDate >= dateFromFilter) &&
-        (!dateToFilter || reportedDate <= dateToFilter)
+        (!quickDateFilter || reportedOn >= quickDateFilter) &&
+        (!dateFromFilter || reportedOn >= dateFromFilter) &&
+        (!dateToFilter || reportedOn <= dateToFilter)
       );
     });
   }
@@ -123,9 +122,5 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   applyFilter(filterValue: string): void {
     this.filteredData.filter = filterValue.trim().toLowerCase();
-  }
-
-  navigateToCaseDetail(row: any): void {
-    this.router.navigate(['/case-details']);
   }
 }

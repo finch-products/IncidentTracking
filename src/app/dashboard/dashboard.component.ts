@@ -145,7 +145,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   navigateToCaseDetail(row: any): void {
-    // this.router.navigate(['/case-details']);
     this.observerDTOService.closeSidenav.next(false);
     this.selectedCase = row;
   }

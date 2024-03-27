@@ -9,15 +9,15 @@
                 <mat-icon>download</mat-icon>
                 Download PDF
             </button>
-            
+
         </div>
     </div>
     <div class="section">
         <div class="title">
-            Unique Case No.
+            Unique CaseDetail No.
         </div>
         <div class="value">
-            {{caseDetail.caseNo}} <span [class]="caseDetail.status">( {{ caseDetail.status | uppercase}} )</span> 
+            {{caseDetail.caseNo}} <span [class]="caseDetail.status">( {{ caseDetail.status | uppercase}} )</span>
         </div>
     </div>
     <div class="section">
@@ -44,7 +44,7 @@
             <app-timeline [statusHistory]="caseDetail.statusHistory"></app-timeline>
         </div>
     </div>
-    
+
 
     <div class="section">
         <div class="title">

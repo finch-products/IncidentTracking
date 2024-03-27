@@ -309,7 +309,7 @@ function randomDateWithinYear() {
 
 }
 
-let currentCaseNo = 9876; // Initialize a unique case number counter
+let currentCaseNo = 9876;
 employeeCases.forEach(({ empNo, count }) => {
   for (let i = 0; i < 734; i++) {
     currentCaseNo++;
@@ -325,7 +325,7 @@ employeeCases.forEach(({ empNo, count }) => {
       employeeInvolved.push(employees[random6])
     }
     let reportedOn = randomDateWithinYear();
-    
+
     cases.push({
       caseNo: `FCN${currentCaseNo}`,
       departmentName: departments[random1].name,
@@ -350,7 +350,6 @@ employeeCases.forEach(({ empNo, count }) => {
           }
         ]
       }]
-    
     });
   }
 });

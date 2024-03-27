@@ -57,12 +57,6 @@ export class SidenavComponent {
       text: 'Alerts/Reminders',
       url: '/alerts'
     },
-    {
-      iconClass: 'material-icons',
-      iconText: 'notifications',
-      text: 'CaseDetail Details',
-      url: '/case-details'
-    }
   ]
 
   constructor(private observerDTO: ObserverDTOService, private router: Router){

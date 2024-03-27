@@ -9,7 +9,6 @@ import { CaseManagementComponent } from './case-management/case-management.compo
 import { ReportComponent } from './report/report.component';
 import { SearchComponent } from './search/search.component';
 import { AlertComponent } from './alert/alert.component';
-import { CaseDetailsComponent } from './case-management/case-details/case-details.component';
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
@@ -21,7 +20,6 @@ const routes: Routes = [
   { path: 'user-management', component: UserFormComponent },
   { path: 'cases', component: CaseManagementComponent },
   { path: 'alerts', component: AlertComponent },
-  { path: 'case-details', component: CaseDetailsComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

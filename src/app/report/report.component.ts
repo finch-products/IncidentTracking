@@ -1,10 +1,45 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { ChartData, ChartConfiguration, ChartOptions } from 'chart.js';
-import { CaseDetail } from 'src/dto/case-detail.dto';
-
 import { cases } from '../mock-data';
 import { FormControl, FormGroup } from '@angular/forms';
+import { CaseDetail } from 'src/dto/case-detail.dto';
+
+// interface CaseDetail {
+//   caseNo: string;
+//   departmentName: string;
+//   branchName: string;
+//   reporter: {
+//     code: string;
+//     name: string;
+//     email: string;
+//   };
+//   reportedOn: string;
+//   subject: string;
+//   description: string;
+//   employeeInvolved: {
+//     code: string;
+//     name: string;
+//     email: string;
+//   }[];
+//   closedOn: string | null;
+//   status: string;
+//   statusHistory: {
+//     status: string;
+//     statusDesc: string;
+//     updateOn: string;
+//     updatedBy: {
+//       code: string;
+//       name: string;
+//       email: string;
+//     };
+//     comment: string;
+//     attachment?: {
+//       filename: string;
+//       fileurl: string;
+//     }[];
+//   }[];
+// }
 
 @Component({
   selector: 'app-report',
@@ -14,10 +49,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ReportComponent {
   cases: CaseDetail[] = [];
 
-  employees: { empNo: string; name: string }[] = [];
+  // employees: { empNo: string; name: string }[] = [];
   searchForm: FormGroup;
-  deptsearchForm: FormGroup;
-  statusSearchForm: FormGroup;
   casesOverTimeChart: Chart | null = null;
   casesByStatusChart: Chart | null = null;
   casesByDepartmentChart: Chart | null = null;
@@ -36,15 +69,6 @@ export class ReportComponent {
     this.searchForm = new FormGroup({
       startDate: new FormControl(oneYearAgo),
       endDate: new FormControl(today),
-    });
-
-    this.deptsearchForm = new FormGroup({
-      deptStartDate: new FormControl(oneYearAgo),
-      deptEndDate: new FormControl(today),
-    });
-    this.statusSearchForm = new FormGroup({
-      statusStartDate: new FormControl(oneYearAgo),
-      statusEndDate: new FormControl(today),
     });
   }
 
@@ -152,7 +176,7 @@ export class ReportComponent {
     const monthlyCounts = Array(12).fill(0);
 
     cases.forEach((c) => {
-      const reportedDate = new Date(c.reportedDate);
+      const reportedDate = new Date(c.reportedOn);
       if (reportedDate >= startDate && reportedDate <= endDate) {
         const monthIndex = reportedDate.getMonth();
         monthlyCounts[monthIndex]++;
@@ -253,7 +277,7 @@ export class ReportComponent {
 
   private aggregateCasesByDepartment(cases: any[]): { [key: string]: number } {
     return cases.reduce((acc: { [key: string]: number }, curr: any) => {
-      acc[curr.department] = (acc[curr.department] || 0) + 1;
+      acc[curr.departmentName] = (acc[curr.departmentName] || 0) + 1;
       return acc;
     }, {});
   }
@@ -400,13 +424,13 @@ export class ReportComponent {
 
   prepareFraudCasesData(): void {
     const flattenedData: any[] = [];
-    console.log(this.cases[0])
+    console.log(this.cases[0]);
 
     // Iterate through each employee object in the 'employee' array
-    this.cases.forEach(caseDetail => {
-      caseDetail.employeeInvolved.forEach(employee => {
-        flattenedData.push({...caseDetail, empNo: employee.code})
-      })
+    this.cases.forEach((caseDetail) => {
+      caseDetail.employeeInvolved.forEach((employee) => {
+        flattenedData.push({ ...caseDetail, empNo: employee.code });
+      });
     });
     const caseCountsByEmployee = flattenedData.reduce(
       (acc: { [key: string]: number }, { empNo }) => {
